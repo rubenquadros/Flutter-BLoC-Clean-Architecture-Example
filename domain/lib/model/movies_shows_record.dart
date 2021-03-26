@@ -1,8 +1,8 @@
 class MoviesShowsRecord {
-  int page;
-  List<Results> results;
-  int totalPages;
-  int totalResults;
+  int? page;
+  List<Results>? results;
+  int? totalPages;
+  int? totalResults;
 
   MoviesShowsRecord(
       {this.page, this.results, this.totalPages, this.totalResults});
@@ -10,9 +10,9 @@ class MoviesShowsRecord {
   MoviesShowsRecord.fromJson(Map<String, dynamic> json) {
     page = json['page'];
     if (json['results'] != null) {
-      results = new List<Results>();
+      results = <Results>[];
       json['results'].forEach((v) {
-        results.add(new Results.fromJson(v));
+        results?.add(new Results.fromJson(v));
       });
     }
     totalPages = json['total_pages'];
@@ -23,7 +23,7 @@ class MoviesShowsRecord {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['page'] = this.page;
     if (this.results != null) {
-      data['results'] = this.results.map((v) => v.toJson()).toList();
+      data['results'] = this.results?.map((v) => v.toJson()).toList();
     }
     data['total_pages'] = this.totalPages;
     data['total_results'] = this.totalResults;
@@ -32,25 +32,25 @@ class MoviesShowsRecord {
 }
 
 class Results {
-  String title;
-  String originalLanguage;
-  String originalTitle;
-  String posterPath;
-  bool video;
-  double voteAverage;
-  String overview;
-  int id;
-  int voteCount;
-  bool adult;
-  String backdropPath;
-  String releaseDate;
-  List<int> genreIds;
-  double popularity;
-  String mediaType;
-  String firstAirDate;
-  List<String> originCountry;
-  String name;
-  String originalName;
+  String? title;
+  String? originalLanguage;
+  String? originalTitle;
+  String? posterPath;
+  bool? video;
+  double? voteAverage;
+  String? overview;
+  int? id;
+  int? voteCount;
+  bool? adult;
+  String? backdropPath;
+  String? releaseDate;
+  List<int>? genreIds;
+  double? popularity;
+  String? mediaType;
+  String? firstAirDate;
+  List<String>? originCountry;
+  String? name;
+  String? originalName;
 
   Results(
       {this.title,

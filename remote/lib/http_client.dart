@@ -6,8 +6,8 @@ class HttpClient {
   final bearer =
       'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MzRjNDliM2EwOWUzNzMwM2YxNmJmMjQxNDMyOTIyZCIsInN1YiI6IjYwM2E5M2E5YzJmZjNkMDA1MjA2MzIwZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.o6T32zw2hIBReqzSDx7hmBRsjUdma-IyTCY7bm-1lCM';
 
-  Future<dynamic> get({String url}) async {
-    var response = await http.get(url, headers: _getHeaders());
+  Future<dynamic> get({required String url}) async {
+    var response = await http.get(Uri.parse(url), headers: _getHeaders());
     return HttpUtil.getResponse(response);
   }
 

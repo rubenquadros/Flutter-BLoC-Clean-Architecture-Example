@@ -1,6 +1,6 @@
 class MoviesShowsRequest {
   String type;
 
-  MoviesShowsRequest({this.type});
+  MoviesShowsRequest({required this.type});
 
 }

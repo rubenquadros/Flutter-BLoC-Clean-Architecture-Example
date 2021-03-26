@@ -1,16 +1,17 @@
-import 'package:data/repository/repository_impl.dart';
 import 'package:domain/model/movies_shows_record.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:domain/usecase/trending_movies_shows_use_case.dart';
-import 'package:domain/repository/repository.dart';
+import 'package:injectable/injectable.dart';
 import 'movies_shows_event.dart';
 import 'movies_shows_state.dart';
 
+@injectable
 class MoviesShowsBloc extends Bloc<MoviesShowsEvent, MoviesShowsState> {
-  Repository _repository = RepositoryImpl();
 
-  MoviesShowsBloc(MoviesShowsState initialState) : super(initialState);
+  final TrendingMoviesShowsUseCase useCase;
+
+  MoviesShowsBloc(this.useCase) : super(InitialMoviesShowsState());
 
   @override
   Stream<MoviesShowsState> mapEventToState(MoviesShowsEvent event) async* {
@@ -28,8 +29,6 @@ class MoviesShowsBloc extends Bloc<MoviesShowsEvent, MoviesShowsState> {
   }
 
   Stream<MoviesShowsState> _fetchMoviesShows(MoviesShowsEvent event) async* {
-    TrendingMoviesShowsUseCase useCase =
-        TrendingMoviesShowsUseCase(repository: _repository);
     try {
       var response =
           await useCase.getTrendingMoviesShows(type: event.toString());

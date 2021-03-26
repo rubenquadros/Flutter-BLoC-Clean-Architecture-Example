@@ -18,7 +18,7 @@ description: A new flutter module project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -27,11 +27,15 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
-  http: ^0.12.2
+  http: ^0.13.1
+  injectable: ^1.2.2
+  get_it: ^6.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  injectable_generator: 1.2.2
+  build_runner: 1.12.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -83,5 +87,5 @@ flutter:
   # identifiers, which may be completely independent or the same as these.
   module:
     androidX: true
-    androidPackage: com.example.remote
-    iosBundleIdentifier: com.example.remote
+    androidPackage: com.ruben.funbox.remote
+    iosBundleIdentifier: com.ruben.funbox.remote

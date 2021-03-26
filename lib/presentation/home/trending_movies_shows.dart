@@ -4,14 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fun_box/bloc/all/movies_shows_bloc.dart';
 import 'package:fun_box/bloc/all/movies_shows_event.dart';
 import 'package:fun_box/bloc/all/movies_shows_state.dart';
+import 'package:get_it/get_it.dart';
 
 class TrendingMoviesShows extends StatefulWidget {
+
   @override
   State<StatefulWidget> createState() => _TrendingMoviesShowsState();
 }
 
 class _TrendingMoviesShowsState extends State<TrendingMoviesShows> {
-  MoviesShowsBloc moviesShowsBloc = MoviesShowsBloc(InitialMoviesShowsState());
+
+  final MoviesShowsBloc _moviesShowsBloc = GetIt.instance.get<MoviesShowsBloc>();
 
   @override
   void initState() {
@@ -20,16 +23,16 @@ class _TrendingMoviesShowsState extends State<TrendingMoviesShows> {
 
   @override
   void dispose() {
-    moviesShowsBloc.close();
+    _moviesShowsBloc.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider(create: (BuildContext context) => moviesShowsBloc);
-    moviesShowsBloc.add(MoviesShowsEvent.all);
+    BlocProvider(create: (BuildContext context) => _moviesShowsBloc);
+    _moviesShowsBloc.add(MoviesShowsEvent.all);
     return BlocBuilder<MoviesShowsBloc, MoviesShowsState>(
-      cubit: moviesShowsBloc,
+      bloc: _moviesShowsBloc,
       builder: (context, state) {
         if (state is InitialMoviesShowsState) {
           return _progressBar();

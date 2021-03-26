@@ -4,10 +4,6 @@ import '../ui_constants.dart';
 
 class CommonSearchBar extends StatelessWidget {
 
-  CommonSearchBar({this.type}): super();
-
-  final String type;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
