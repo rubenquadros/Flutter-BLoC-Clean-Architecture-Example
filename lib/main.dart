@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fun_box/config/configurations.dart';
 import 'package:fun_box/di/di.dart';
 import 'package:fun_box/presentation/home/home.dart';
 import 'package:get_it/get_it.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   GetIt.instance.allowReassignment = true;
   await configureInjection();
-  runApp(MyApp());
+  await Configurations().getConfig();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+  .then((_) => runApp(MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -17,7 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Fun Box',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.deepOrange,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Home(),

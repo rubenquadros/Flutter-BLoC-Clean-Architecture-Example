@@ -14,4 +14,9 @@ class MoviesShowsDataSourceImpl implements MoviesShowsDataSource {
       MoviesShowsRequest request) {
     return httpClient.get(url: '${ApiConstants.base_url}/trending/${request.type}/day?api_key=$apiKey');
   }
+
+  @override
+  Future<dynamic> getConfig() {
+    return httpClient.get(url: '${ApiConstants.base_url}/configuration?api_key=$apiKey');
+  }
 }

@@ -9,8 +9,13 @@ class CommonSearchBar extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: Theme(
-        data: ThemeData(primaryColor: Colors.redAccent),
+        data: ThemeData(primaryColor: Colors.deepOrangeAccent),
         child: TextField(
+          style: TextStyle(
+            fontFamily: 'iron',
+            fontWeight: FontWeight.w400,
+            fontSize: 16.0
+          ),
           decoration: InputDecoration(
               prefixIcon: Icon(Icons.search),
               hintText: UIConstants.search_hint,

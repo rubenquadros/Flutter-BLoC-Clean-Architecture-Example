@@ -1,3 +1,3 @@
 class UIConstants {
-  static const search_hint = 'Search';
+  static const search_hint = 'Search...';
 }
