@@ -10,7 +10,7 @@ class HttpUtil {
       case ApiConstants.http_success:
         return _getSuccessResponse(response);
       default:
-        return Exception('Network error');
+        return Exception('Remote Error');
     }
   }
 

@@ -1,8 +1,8 @@
-import 'package:remote/model/request/movies_shows_request.dart';
+import 'package:remote/model/trending_request.dart';
 
 abstract class MoviesShowsDataSource {
 
-  Future<dynamic> getTrendingMoviesShows(MoviesShowsRequest request);
   Future<dynamic> getConfig();
+  Future<dynamic> getTrending(TrendingRequest request);
 
 }

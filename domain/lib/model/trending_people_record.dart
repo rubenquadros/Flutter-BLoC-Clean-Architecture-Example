@@ -1,13 +1,13 @@
-class MoviesShowsRecord {
+class TrendingPeopleRecord {
   int? page;
   List<Results>? results;
   int? totalPages;
   int? totalResults;
 
-  MoviesShowsRecord(
+  TrendingPeopleRecord(
       {this.page, this.results, this.totalPages, this.totalResults});
 
-  MoviesShowsRecord.fromJson(Map<String, dynamic> json) {
+  TrendingPeopleRecord.fromJson(Map<String, dynamic> json) {
     page = json['page'];
     if (json['results'] != null) {
       results = <Results>[];
@@ -32,98 +32,140 @@ class MoviesShowsRecord {
 }
 
 class Results {
-  String? title;
-  String? originalLanguage;
-  String? originalTitle;
-  String? posterPath;
-  bool? video;
-  double? voteAverage;
-  String? overview;
-  int? id;
-  int? voteCount;
+  String? profilePath;
+  List<KnownFor>? knownFor;
+  String? knownForDepartment;
   bool? adult;
-  String? backdropPath;
-  String? releaseDate;
-  List<int>? genreIds;
+  String? name;
+  int? gender;
+  int? id;
   double? popularity;
   String? mediaType;
-  String? firstAirDate;
-  List<String>? originCountry;
-  String? name;
-  String? originalName;
 
   Results(
-      {this.title,
-      this.originalLanguage,
-      this.originalTitle,
-      this.posterPath,
-      this.video,
-      this.voteAverage,
-      this.overview,
-      this.id,
-      this.voteCount,
+      {this.profilePath,
+      this.knownFor,
+      this.knownForDepartment,
       this.adult,
-      this.backdropPath,
-      this.releaseDate,
-      this.genreIds,
-      this.popularity,
-      this.mediaType,
-      this.firstAirDate,
-      this.originCountry,
       this.name,
-      this.originalName});
+      this.gender,
+      this.id,
+      this.popularity,
+      this.mediaType});
 
   Results.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
-    originalLanguage = json['original_language'];
-    originalTitle = json['original_title'];
-    posterPath = json['poster_path'];
-    video = json['video'];
-    voteAverage = json['vote_average'];
-    overview = json['overview'];
-    id = json['id'];
-    voteCount = json['vote_count'];
+    profilePath = json['profile_path'];
+    if (json['known_for'] != null) {
+      knownFor = <KnownFor>[];
+      json['known_for'].forEach((v) {
+        knownFor?.add(new KnownFor.fromJson(v));
+      });
+    }
+    knownForDepartment = json['known_for_department'];
     adult = json['adult'];
-    backdropPath = json['backdrop_path'];
-    releaseDate = json['release_date'];
-    genreIds = json['genre_ids'].cast<int>();
+    name = json['name'];
+    gender = json['gender'];
+    id = json['id'];
     popularity = json['popularity'];
     mediaType = json['media_type'];
-    if (json['first_air_date'] != null) {
-      firstAirDate = json['first_air_date'];
-    }
-    if (json['origin_country'] != null) {
-      originCountry = json['origin_country'].cast<String>();
-    }
-    if (json['name'] != null) {
-      name = json['name'];
-    }
-    if (json['original_name'] != null) {
-      originalName = json['original_name'];
-    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['title'] = this.title;
+    data['profile_path'] = this.profilePath;
+    if (this.knownFor != null) {
+      data['known_for'] = this.knownFor?.map((v) => v.toJson()).toList();
+    }
+    data['known_for_department'] = this.knownForDepartment;
+    data['adult'] = this.adult;
+    data['name'] = this.name;
+    data['gender'] = this.gender;
+    data['id'] = this.id;
+    data['popularity'] = this.popularity;
+    data['media_type'] = this.mediaType;
+    return data;
+  }
+}
+
+class KnownFor {
+  String? originalLanguage;
+  String? originalTitle;
+  String? posterPath;
+  String? title;
+  bool? video;
+  double? voteAverage;
+  double? popularity;
+  String? overview;
+  String? releaseDate;
+  List<int>? genreIds;
+  bool? adult;
+  String? backdropPath;
+  String? mediaType;
+  String? firstAirDate;
+  List<String>? originCountry;
+  String? originalName;
+  String? name;
+
+  KnownFor(
+      {this.originalLanguage,
+      this.originalTitle,
+      this.posterPath,
+      this.title,
+      this.video,
+      this.voteAverage,
+      this.popularity,
+      this.overview,
+      this.releaseDate,
+      this.genreIds,
+      this.adult,
+      this.backdropPath,
+      this.mediaType,
+      this.firstAirDate,
+      this.originCountry,
+      this.originalName,
+      this.name});
+
+  KnownFor.fromJson(Map<String, dynamic> json) {
+    originalLanguage = json['original_language'];
+    originalTitle = json['original_title'];
+    posterPath = json['poster_path'];
+    title = json['title'];
+    video = json['video'];
+    voteAverage = json['vote_average'];
+    popularity = json['popularity'];
+    overview = json['overview'];
+    releaseDate = json['release_date'];
+    genreIds = json['genre_ids'].cast<int>();
+    adult = json['adult'];
+    backdropPath = json['backdrop_path'];
+    mediaType = json['media_type'];
+    firstAirDate = json['first_air_date'];
+    if (json['origin_country'] != null) {
+      originCountry = json['origin_country'].cast<String>();
+    }
+    originalName = json['original_name'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
     data['original_language'] = this.originalLanguage;
     data['original_title'] = this.originalTitle;
     data['poster_path'] = this.posterPath;
+    data['title'] = this.title;
     data['video'] = this.video;
     data['vote_average'] = this.voteAverage;
+    data['popularity'] = this.popularity;
     data['overview'] = this.overview;
-    data['id'] = this.id;
-    data['vote_count'] = this.voteCount;
-    data['adult'] = this.adult;
-    data['backdrop_path'] = this.backdropPath;
     data['release_date'] = this.releaseDate;
     data['genre_ids'] = this.genreIds;
-    data['popularity'] = this.popularity;
+    data['adult'] = this.adult;
+    data['backdrop_path'] = this.backdropPath;
     data['media_type'] = this.mediaType;
     data['first_air_date'] = this.firstAirDate;
     data['origin_country'] = this.originCountry;
-    data['name'] = this.name;
     data['original_name'] = this.originalName;
+    data['name'] = this.name;
     return data;
   }
 }

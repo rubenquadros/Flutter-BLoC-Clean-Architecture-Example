@@ -1,5 +1,7 @@
 abstract class Repository {
 
-  Future<dynamic> getTrendingMoviesShows(String type);
+  Future<dynamic> getTrendingMovies(String type);
+  Future<dynamic> getTrendingShows(String type);
+  Future<dynamic> getTrendingPeople(String type);
 
 }

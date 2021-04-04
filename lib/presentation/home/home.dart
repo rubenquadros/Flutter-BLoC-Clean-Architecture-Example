@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fun_box/presentation/common/common_search_bar.dart';
-import 'package:fun_box/presentation/home/trending_movies_shows.dart';
+import 'package:fun_box/presentation/home/trending_movies.dart';
+import 'package:fun_box/presentation/home/trending_people.dart';
+import 'package:fun_box/presentation/home/trending_shows.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -11,14 +13,23 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Material(
-        child: ListView(
+        child: SafeArea(
+            child: ListView(
       children: [
         CommonSearchBar(),
         Padding(
-          padding: EdgeInsets.all(10.0),
-          child: TrendingMoviesShows(),
+          padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
+          child: TrendingMovies(),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
+          child: TrendingShows(),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
+          child: TrendingPeople(),
         )
       ],
-    ));
+    )));
   }
 }
