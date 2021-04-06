@@ -1,0 +1,355 @@
+import 'dart:math';
+
+import 'package:domain/model/movie_details_record.dart';
+import 'package:domain/model/show_details_record.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fun_box/bloc/details/movie_show_details_bloc.dart';
+import 'package:fun_box/bloc/details/movie_show_details_event.dart';
+import 'package:fun_box/bloc/details/movie_show_details_state.dart';
+import 'package:fun_box/config/configurations.dart';
+import 'package:fun_box/presentation/common/common_widgets.dart';
+import 'package:fun_box/presentation/ui_constants.dart';
+import 'package:fun_box/utils/app_utility.dart';
+import 'package:get_it/get_it.dart';
+
+class MovieShowInfo extends StatefulWidget {
+  final String type;
+  final double id;
+
+  MovieShowInfo({required this.type, required this.id});
+
+  @override
+  State<StatefulWidget> createState() => _MovieShowInfoState(type, id);
+}
+
+class _MovieShowInfoState extends State<MovieShowInfo> {
+  final String type;
+  final double id;
+  final MovieShowDetailsBloc _movieShowDetailsBloc =
+      GetIt.instance.get<MovieShowDetailsBloc>();
+
+  _MovieShowInfoState(this.type, this.id);
+
+  @override
+  Widget build(BuildContext context) {
+    BlocProvider(create: (BuildContext context) => _movieShowDetailsBloc);
+    _movieShowDetailsBloc.add(MovieShowDetailsEvent(type: type, id: id));
+    return BlocBuilder<MovieShowDetailsBloc, MovieShowDetailsState>(
+        bloc: _movieShowDetailsBloc,
+        builder: (context, state) {
+          if (state is InitialMovieShowDetailsState) {
+            return _initState();
+          } else if (state is SuccessMovieDetailsState) {
+            return _movieDetails(context, state.record);
+          } else if (state is SuccessShowDetailsState) {
+            return _showDetails(context, state.record);
+          } else if (state is ErrorMovieShowDetailsState) {
+            return _errorState(context);
+          } else {
+            return _errorState(context);
+          }
+        });
+  }
+}
+
+Widget _movieDetails(BuildContext context, MovieDetailsRecord movieDetails) {
+  final height = MediaQuery.of(context).size.height;
+  final width = MediaQuery.of(context).size.width;
+  var genres = '';
+  if (movieDetails.genres != null && movieDetails.genres!.length > 0) {
+    for (var i = 0; i < movieDetails.genres!.length; i++) {
+      genres = genres + movieDetails.genres![i].name!.trim();
+      if (i != movieDetails.genres!.length - 1) {
+        genres = '$genres, ';
+      }
+    }
+  }
+  return ListView(
+    shrinkWrap: true,
+    children: [
+      _backdropView(context, movieDetails.posterPath ?? "", height / 3, width),
+      _infoView(
+          genres,
+          movieDetails.title ?? "",
+          movieDetails.overview ?? "",
+          movieDetails.voteAverage,
+          movieDetails.releaseDate ?? "")
+    ],
+  );
+}
+
+Widget _showDetails(BuildContext context, ShowDetailsRecord showDetails) {
+  final height = MediaQuery.of(context).size.height;
+  final width = MediaQuery.of(context).size.width;
+  var genres = '';
+  if (showDetails.genres != null && showDetails.genres!.length > 0) {
+    for (var i = 0; i < showDetails.genres!.length; i++) {
+      genres = genres + showDetails.genres![i].name!.trim();
+      if (i != showDetails.genres!.length - 1) {
+        genres = '$genres, ';
+      }
+    }
+  }
+  return ListView(
+    shrinkWrap: true,
+    children: [
+      _backdropView(context, showDetails.posterPath ?? "", height / 3, width),
+      _infoView(
+          genres,
+          showDetails.name ?? "",
+          showDetails.overview ?? "",
+          showDetails.voteAverage,
+          showDetails.firstAirDate ?? ""),
+      _seasonView(
+        showDetails.numberOfSeasons.toString(),
+        showDetails.numberOfEpisodes.toString()
+      )
+    ],
+  );
+}
+
+Widget _backdropView(
+    BuildContext context, String imagePath, double height, width) {
+  return Stack(
+    clipBehavior: Clip.none,
+    children: [
+      ClipPath(
+        clipper: CurvedBottomClipper(),
+        child: Container(
+          height: height,
+          width: width,
+          child: Card(
+            margin: EdgeInsets.zero,
+            elevation: 5.0,
+            child: Image.network(
+              '${Configurations.imageUrl}/${Configurations.imageSize}$imagePath',
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.all(10.0),
+        child: GestureDetector(
+          onTap: () => _goToHomeScreen(context),
+          child: Icon(
+            Icons.arrow_back_rounded,
+            size: 40.0,
+          ),
+        ),
+      ),
+      Positioned(
+          left: 0,
+          right: 0,
+          bottom: -35.0,
+          child: FloatingActionButton(
+            elevation: 20.0,
+            backgroundColor: Colors.white,
+            onPressed: () {},
+            child: Icon(
+              Icons.play_arrow_rounded,
+              color: Colors.red,
+              size: 40.0,
+            ),
+          ))
+    ],
+  );
+}
+
+Widget _infoView(String genres, String title, String overView, double? rating,
+    String releaseDate) {
+  return Container(
+    margin: EdgeInsets.only(top: 40.0, left: 16.0, right: 16.0),
+    child: Column(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            title,
+            style: TextStyle(
+                color: Colors.black,
+                fontFamily: UIConstants.font_family_metropolis,
+                fontSize: 24.0,
+                fontWeight: FontWeight.w700),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              genres,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: UIConstants.font_family_metropolis,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w400),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 8.0),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(overView,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: UIConstants.font_family_metropolis,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w400)),
+          ),
+        ),
+        Row(
+          children: [
+            Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 16.0),
+                  child: Text(
+                    UIConstants.all_rating,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: UIConstants.font_family_metropolis,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    rating.toString(),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: UIConstants.font_family_metropolis,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w700),
+                  ),
+                )
+              ],
+            ),
+            Expanded(child: SizedBox()),
+            Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 16.0),
+                  child: Text(
+                    UIConstants.all_release,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: UIConstants.font_family_metropolis,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 8.0),
+                  child: Text(AppUtility.getYearFromDate(releaseDate),
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: UIConstants.font_family_metropolis,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w700)),
+                )
+              ],
+            )
+          ],
+        )
+      ],
+    ),
+  );
+}
+
+Widget _seasonView(String seasons, String episodes) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: 8.0, right: 8.0),
+            child: Text(
+              UIConstants.all_seasons,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: UIConstants.font_family_metropolis,
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w400),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 8.0),
+            child: Text(
+              seasons,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: UIConstants.font_family_metropolis,
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w700),
+            ),
+          )
+        ],
+      ),
+      Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: 8.0, left: 8.0),
+            child: Text(
+              UIConstants.all_episodes,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: UIConstants.font_family_metropolis,
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w400),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 8.0),
+            child: Text(
+              episodes,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: UIConstants.font_family_metropolis,
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w700),
+            ),
+          )
+        ],
+      )
+    ],
+  );
+}
+
+Widget _initState() {
+  return CommonProgressBar();
+}
+
+Widget _errorState(BuildContext context) {
+  return Text('Error');
+}
+
+void _goToHomeScreen(BuildContext context) {
+  Navigator.pop(context);
+}
+
+class CurvedBottomClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final roundingHeight = size.height * 1 / 5;
+    final filledRectangle =
+        Rect.fromLTRB(0, 0, size.width, size.height - roundingHeight);
+    final roundingRectangle = Rect.fromLTRB(
+        -5, size.height - roundingHeight * 2, size.width + 5, size.height);
+    final path = Path();
+    path.addRect(filledRectangle);
+    path.arcTo(roundingRectangle, pi, -pi, true);
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return true;
+  }
+}

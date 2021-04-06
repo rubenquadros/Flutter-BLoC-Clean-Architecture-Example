@@ -1,13 +1,13 @@
-import 'package:domain/repository/repository.dart';
+import 'package:domain/repository/trending_repository.dart';
 import 'package:injectable/injectable.dart';
 import 'package:remote/datasource/movies_shows_data_source.dart';
 import 'package:remote/model/trending_request.dart';
 
-@Singleton(as: Repository)
-class RepositoryImpl implements Repository {
+@Singleton(as: TrendingRepository)
+class TrendingRepositoryImpl implements TrendingRepository {
   final MoviesShowsDataSource moviesShowsDataSource;
 
-  RepositoryImpl(this.moviesShowsDataSource);
+  TrendingRepositoryImpl(this.moviesShowsDataSource);
 
   @override
   Future getTrendingMovies(String type) {

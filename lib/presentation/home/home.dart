@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fun_box/presentation/common/common_search_bar.dart';
-import 'package:fun_box/presentation/home/trending_movies.dart';
-import 'package:fun_box/presentation/home/trending_people.dart';
-import 'package:fun_box/presentation/home/trending_shows.dart';
+import 'package:fun_box/presentation/home/widgets/trending_movies.dart';
+import 'package:fun_box/presentation/home/widgets/trending_people.dart';
+import 'package:fun_box/presentation/home/widgets/trending_shows.dart';
 
 class Home extends StatefulWidget {
   @override

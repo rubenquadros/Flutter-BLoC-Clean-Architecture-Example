@@ -8,6 +8,7 @@ import 'package:fun_box/presentation/common/common_display_tiles.dart';
 import 'package:fun_box/presentation/common/common_error_ui.dart';
 import 'package:fun_box/presentation/common/common_widgets.dart';
 import 'package:fun_box/presentation/ui_constants.dart';
+import 'package:fun_box/utils/app_constants.dart';
 import 'package:get_it/get_it.dart';
 
 class TrendingMovies extends StatefulWidget {
@@ -16,8 +17,7 @@ class TrendingMovies extends StatefulWidget {
 }
 
 class _TrendingMoviesState extends State<TrendingMovies> {
-  final TrendingBloc _trendingBloc =
-      GetIt.instance.get<TrendingBloc>();
+  final TrendingBloc _trendingBloc = GetIt.instance.get<TrendingBloc>();
 
   @override
   void dispose() {
@@ -58,7 +58,7 @@ class _TrendingMoviesState extends State<TrendingMovies> {
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 20.0,
-                    fontFamily: 'iron',
+                    fontFamily: UIConstants.font_family_ironclad,
                     fontWeight: FontWeight.w700),
               ),
               Expanded(child: SizedBox()),
@@ -69,7 +69,12 @@ class _TrendingMoviesState extends State<TrendingMovies> {
             ],
           ),
         ),
-        CommonDisplayTiles(width: width, itemCount: trendingMovies.results?.length ?? 0, results: trendingMovies.results)
+        CommonDisplayTiles(
+          width: width,
+          itemCount: trendingMovies.results?.length ?? 0,
+          results: trendingMovies.results,
+          type: AppConstants.movie,
+        )
       ],
     );
   }

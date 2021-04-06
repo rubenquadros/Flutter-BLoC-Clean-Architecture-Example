@@ -1,10 +1,10 @@
-import 'package:domain/repository/repository.dart';
+import 'package:domain/repository/trending_repository.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
 class TrendingShowsUseCase {
 
-  final Repository repository;
+  final TrendingRepository repository;
 
   TrendingShowsUseCase(this.repository);
 

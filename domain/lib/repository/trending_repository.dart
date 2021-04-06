@@ -1,4 +1,4 @@
-abstract class Repository {
+abstract class TrendingRepository {
 
   Future<dynamic> getTrendingMovies(String type);
   Future<dynamic> getTrendingShows(String type);

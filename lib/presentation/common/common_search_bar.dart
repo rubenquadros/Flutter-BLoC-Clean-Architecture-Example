@@ -14,7 +14,10 @@ class CommonSearchBar extends StatelessWidget {
         child: TextField(
           focusNode: SearchFocusNode(),
           style: TextStyle(
-              fontFamily: 'iron', fontWeight: FontWeight.w400, fontSize: 16.0),
+              fontFamily: UIConstants.font_family_ironclad,
+              fontWeight: FontWeight.w400,
+              fontSize: 16.0
+          ),
           decoration: InputDecoration(
               prefixIcon: Icon(Icons.search),
               hintText: UIConstants.search_hint,

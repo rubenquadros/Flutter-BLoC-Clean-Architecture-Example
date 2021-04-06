@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:remote/http_client.dart';
+import 'package:remote/model/details_request.dart';
 import 'package:remote/model/trending_request.dart';
 import 'package:remote/util/api_constants.dart';
 import 'movies_shows_data_source.dart';
@@ -19,7 +20,15 @@ class MoviesShowsDataSourceImpl implements MoviesShowsDataSource {
   Future<dynamic> getTrending(TrendingRequest request) {
     return httpClient.get(
         url:
-            '${ApiConstants.base_url}/trending/${request.type}/day?api_key=$apiKey');
+        '${ApiConstants.base_url}/trending/${request
+            .type}/day?api_key=$apiKey');
   }
-  
+
+  @override
+  Future<dynamic> getDetails(DetailsRequest request) {
+    return httpClient.get(
+        url: '${ApiConstants.base_url}/${request.type}/${request
+            .id}?api_key=$apiKey');
+  }
+
 }

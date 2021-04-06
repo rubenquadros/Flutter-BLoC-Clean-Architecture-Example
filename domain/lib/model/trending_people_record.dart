@@ -97,7 +97,6 @@ class KnownFor {
   double? popularity;
   String? overview;
   String? releaseDate;
-  List<int>? genreIds;
   bool? adult;
   String? backdropPath;
   String? mediaType;
@@ -116,7 +115,6 @@ class KnownFor {
       this.popularity,
       this.overview,
       this.releaseDate,
-      this.genreIds,
       this.adult,
       this.backdropPath,
       this.mediaType,
@@ -135,7 +133,6 @@ class KnownFor {
     popularity = json['popularity'];
     overview = json['overview'];
     releaseDate = json['release_date'];
-    genreIds = json['genre_ids'].cast<int>();
     adult = json['adult'];
     backdropPath = json['backdrop_path'];
     mediaType = json['media_type'];
@@ -158,7 +155,6 @@ class KnownFor {
     data['popularity'] = this.popularity;
     data['overview'] = this.overview;
     data['release_date'] = this.releaseDate;
-    data['genre_ids'] = this.genreIds;
     data['adult'] = this.adult;
     data['backdrop_path'] = this.backdropPath;
     data['media_type'] = this.mediaType;

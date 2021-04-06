@@ -19,7 +19,7 @@ class ErrorUI extends StatelessWidget {
             UIConstants.error_message,
             style: TextStyle(
                 fontSize: 14.0,
-                fontFamily: 'iron',
+                fontFamily: UIConstants.font_family_ironclad,
                 fontWeight: FontWeight.w400),
           )
         ],
