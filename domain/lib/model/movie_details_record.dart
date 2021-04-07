@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class MovieDetailsRecord {
   bool? adult;
   String? backdropPath;
@@ -27,30 +29,30 @@ class MovieDetailsRecord {
 
   MovieDetailsRecord(
       {this.adult,
-        this.backdropPath,
-        this.belongsToCollection,
-        this.budget,
-        this.genres,
-        this.homepage,
-        this.id,
-        this.imdbId,
-        this.originalLanguage,
-        this.originalTitle,
-        this.overview,
-        this.popularity,
-        this.posterPath,
-        this.productionCompanies,
-        this.productionCountries,
-        this.releaseDate,
-        this.revenue,
-        this.runtime,
-        this.spokenLanguages,
-        this.status,
-        this.tagline,
-        this.title,
-        this.video,
-        this.voteAverage,
-        this.voteCount});
+      this.backdropPath,
+      this.belongsToCollection,
+      this.budget,
+      this.genres,
+      this.homepage,
+      this.id,
+      this.imdbId,
+      this.originalLanguage,
+      this.originalTitle,
+      this.overview,
+      this.popularity,
+      this.posterPath,
+      this.productionCompanies,
+      this.productionCountries,
+      this.releaseDate,
+      this.revenue,
+      this.runtime,
+      this.spokenLanguages,
+      this.status,
+      this.tagline,
+      this.title,
+      this.video,
+      this.voteAverage,
+      this.voteCount});
 
   MovieDetailsRecord.fromJson(Map<String, dynamic> json) {
     adult = json['adult'];
@@ -61,9 +63,13 @@ class MovieDetailsRecord {
     budget = json['budget'];
     if (json['genres'] != null) {
       genres = <Genres>[];
-      json['genres'].forEach((v) {
-        genres?.add(new Genres.fromJson(v));
-      });
+      try {
+        json['genres'].forEach((v) {
+          genres?.add(new Genres.fromJson(v));
+        });
+      } catch (_) {
+        debugPrint('Data inconsistency');
+      }
     }
     homepage = json['homepage'];
     id = json['id'];
@@ -75,24 +81,36 @@ class MovieDetailsRecord {
     posterPath = json['poster_path'];
     if (json['production_companies'] != null) {
       productionCompanies = <ProductionCompanies>[];
-      json['production_companies'].forEach((v) {
-        productionCompanies?.add(new ProductionCompanies.fromJson(v));
-      });
+      try {
+        json['production_companies'].forEach((v) {
+          productionCompanies?.add(new ProductionCompanies.fromJson(v));
+        });
+      } catch (_) {
+        debugPrint('Data inconsistency');
+      }
     }
     if (json['production_countries'] != null) {
       productionCountries = <ProductionCountries>[];
-      json['production_countries'].forEach((v) {
-        productionCountries?.add(new ProductionCountries.fromJson(v));
-      });
+      try {
+        json['production_countries'].forEach((v) {
+          productionCountries?.add(new ProductionCountries.fromJson(v));
+        });
+      } catch (_) {
+        debugPrint('Data inconsistency');
+      }
     }
     releaseDate = json['release_date'];
     revenue = json['revenue'];
     runtime = json['runtime'];
     if (json['spoken_languages'] != null) {
       spokenLanguages = <SpokenLanguages>[];
-      json['spoken_languages'].forEach((v) {
-        spokenLanguages?.add(new SpokenLanguages.fromJson(v));
-      });
+      try {
+        json['spoken_languages'].forEach((v) {
+          spokenLanguages?.add(new SpokenLanguages.fromJson(v));
+        });
+      } catch (_) {
+        debugPrint('Data inconsistency');
+      }
     }
     status = json['status'];
     tagline = json['tagline'];

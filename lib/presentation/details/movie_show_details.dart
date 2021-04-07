@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fun_box/presentation/details/widgets/movie_show_cast.dart';
 import 'package:fun_box/presentation/details/widgets/movie_show_info.dart';
 
 class MovieShowDetails extends StatefulWidget {
@@ -22,9 +23,13 @@ class _MovieShowDetailsState extends State<MovieShowDetails> {
     return Material(
       child: SafeArea(
         child: ListView(
-          shrinkWrap: true,
+            shrinkWrap: true,
           children: [
-            MovieShowInfo(type: type, id: id)
+            MovieShowInfo(type: type, id: id),
+            Padding(
+              padding: EdgeInsets.only(top: 24.0, left: 16.0, right: 16.0),
+              child: MovieShowCast(type: type, id: id),
+            )
           ],
         ),
       ),

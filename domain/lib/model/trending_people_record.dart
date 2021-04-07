@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class TrendingPeopleRecord {
   int? page;
   List<Results>? results;
@@ -57,9 +59,13 @@ class Results {
     profilePath = json['profile_path'];
     if (json['known_for'] != null) {
       knownFor = <KnownFor>[];
-      json['known_for'].forEach((v) {
-        knownFor?.add(new KnownFor.fromJson(v));
-      });
+      try {
+        json['known_for'].forEach((v) {
+          knownFor?.add(new KnownFor.fromJson(v));
+        });
+      } catch (_) {
+        debugPrint('Data inconsistency');
+      }
     }
     knownForDepartment = json['known_for_department'];
     adult = json['adult'];
@@ -136,12 +142,18 @@ class KnownFor {
     adult = json['adult'];
     backdropPath = json['backdrop_path'];
     mediaType = json['media_type'];
-    firstAirDate = json['first_air_date'];
+    if (json['first_air_date'] != null) {
+      firstAirDate = json['first_air_date'];
+    }
     if (json['origin_country'] != null) {
       originCountry = json['origin_country'].cast<String>();
     }
-    originalName = json['original_name'];
-    name = json['name'];
+    if (json['original_name'] != null) {
+      originalName = json['original_name'];
+    }
+    if (json['name'] != null) {
+      name = json['name'];
+    }
   }
 
   Map<String, dynamic> toJson() {

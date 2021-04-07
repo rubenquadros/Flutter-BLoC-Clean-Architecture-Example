@@ -4,8 +4,7 @@ class TrendingRecord {
   int? totalPages;
   int? totalResults;
 
-  TrendingRecord(
-      {this.page, this.results, this.totalPages, this.totalResults});
+  TrendingRecord({this.page, this.results, this.totalPages, this.totalResults});
 
   TrendingRecord.fromJson(Map<String, dynamic> json) {
     page = json['page'];

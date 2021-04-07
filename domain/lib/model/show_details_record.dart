@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class ShowDetailsRecord {
   String? backdropPath;
   List<CreatedBy>? createdBy;
@@ -33,52 +35,60 @@ class ShowDetailsRecord {
 
   ShowDetailsRecord(
       {this.backdropPath,
-        this.createdBy,
-        this.episodeRunTime,
-        this.firstAirDate,
-        this.genres,
-        this.homepage,
-        this.id,
-        this.inProduction,
-        this.languages,
-        this.lastAirDate,
-        this.lastEpisodeToAir,
-        this.name,
-        this.nextEpisodeToAir,
-        this.networks,
-        this.numberOfEpisodes,
-        this.numberOfSeasons,
-        this.originCountry,
-        this.originalLanguage,
-        this.originalName,
-        this.overview,
-        this.popularity,
-        this.posterPath,
-        this.productionCompanies,
-        this.productionCountries,
-        this.seasons,
-        this.spokenLanguages,
-        this.status,
-        this.tagline,
-        this.type,
-        this.voteAverage,
-        this.voteCount});
+      this.createdBy,
+      this.episodeRunTime,
+      this.firstAirDate,
+      this.genres,
+      this.homepage,
+      this.id,
+      this.inProduction,
+      this.languages,
+      this.lastAirDate,
+      this.lastEpisodeToAir,
+      this.name,
+      this.nextEpisodeToAir,
+      this.networks,
+      this.numberOfEpisodes,
+      this.numberOfSeasons,
+      this.originCountry,
+      this.originalLanguage,
+      this.originalName,
+      this.overview,
+      this.popularity,
+      this.posterPath,
+      this.productionCompanies,
+      this.productionCountries,
+      this.seasons,
+      this.spokenLanguages,
+      this.status,
+      this.tagline,
+      this.type,
+      this.voteAverage,
+      this.voteCount});
 
   ShowDetailsRecord.fromJson(Map<String, dynamic> json) {
     backdropPath = json['backdrop_path'];
     if (json['created_by'] != null) {
       createdBy = <CreatedBy>[];
-      json['created_by'].forEach((v) {
-        createdBy?.add(new CreatedBy.fromJson(v));
-      });
+      try {
+        json['created_by'].forEach((v) {
+          createdBy?.add(new CreatedBy.fromJson(v));
+        });
+      } catch (_) {
+        debugPrint('Data inconsistency');
+      }
     }
     episodeRunTime = json['episode_run_time'].cast<int>();
     firstAirDate = json['first_air_date'];
     if (json['genres'] != null) {
       genres = <Genres>[];
-      json['genres'].forEach((v) {
-        genres?.add(new Genres.fromJson(v));
-      });
+      try {
+        json['genres'].forEach((v) {
+          genres?.add(new Genres.fromJson(v));
+        });
+      } catch (_) {
+        debugPrint('Data inconsistency');
+      }
     }
     homepage = json['homepage'];
     id = json['id'];
@@ -94,9 +104,13 @@ class ShowDetailsRecord {
         : null;
     if (json['networks'] != null) {
       networks = <Networks>[];
-      json['networks'].forEach((v) {
-        networks?.add(new Networks.fromJson(v));
-      });
+      try {
+        json['networks'].forEach((v) {
+          networks?.add(new Networks.fromJson(v));
+        });
+      } catch (_) {
+        debugPrint('Data inconsistency');
+      }
     }
     numberOfEpisodes = json['number_of_episodes'];
     numberOfSeasons = json['number_of_seasons'];
@@ -108,27 +122,43 @@ class ShowDetailsRecord {
     posterPath = json['poster_path'];
     if (json['production_companies'] != null) {
       productionCompanies = <ProductionCompanies>[];
-      json['production_companies'].forEach((v) {
-        productionCompanies?.add(new ProductionCompanies.fromJson(v));
-      });
+      try {
+        json['production_companies'].forEach((v) {
+          productionCompanies?.add(new ProductionCompanies.fromJson(v));
+        });
+      } catch (_) {
+        debugPrint('Data inconsistency');
+      }
     }
     if (json['production_countries'] != null) {
       productionCountries = <ProductionCountries>[];
-      json['production_countries'].forEach((v) {
-        productionCountries?.add(new ProductionCountries.fromJson(v));
-      });
+      try {
+        json['production_countries'].forEach((v) {
+          productionCountries?.add(new ProductionCountries.fromJson(v));
+        });
+      } catch (_) {
+        debugPrint('Data inconsistency');
+      }
     }
     if (json['seasons'] != null) {
       seasons = <Seasons>[];
-      json['seasons'].forEach((v) {
-        seasons?.add(new Seasons.fromJson(v));
-      });
+      try {
+        json['seasons'].forEach((v) {
+          seasons?.add(new Seasons.fromJson(v));
+        });
+      } catch (_) {
+        debugPrint('Data inconsistency');
+      }
     }
     if (json['spoken_languages'] != null) {
       spokenLanguages = <SpokenLanguages>[];
-      json['spoken_languages'].forEach((v) {
-        spokenLanguages?.add(new SpokenLanguages.fromJson(v));
-      });
+      try {
+        json['spoken_languages'].forEach((v) {
+          spokenLanguages?.add(new SpokenLanguages.fromJson(v));
+        });
+      } catch (_) {
+        debugPrint('Data inconsistency');
+      }
     }
     status = json['status'];
     tagline = json['tagline'];
@@ -256,15 +286,15 @@ class LastEpisodeToAir {
 
   LastEpisodeToAir(
       {this.airDate,
-        this.episodeNumber,
-        this.id,
-        this.name,
-        this.overview,
-        this.productionCode,
-        this.seasonNumber,
-        this.stillPath,
-        this.voteAverage,
-        this.voteCount});
+      this.episodeNumber,
+      this.id,
+      this.name,
+      this.overview,
+      this.productionCode,
+      this.seasonNumber,
+      this.stillPath,
+      this.voteAverage,
+      this.voteCount});
 
   LastEpisodeToAir.fromJson(Map<String, dynamic> json) {
     airDate = json['air_date'];
@@ -309,15 +339,15 @@ class NextEpisodeToAir {
 
   NextEpisodeToAir(
       {this.airDate,
-        this.episodeNumber,
-        this.id,
-        this.name,
-        this.overview,
-        this.productionCode,
-        this.seasonNumber,
-        this.stillPath,
-        this.voteAverage,
-        this.voteCount});
+      this.episodeNumber,
+      this.id,
+      this.name,
+      this.overview,
+      this.productionCode,
+      this.seasonNumber,
+      this.stillPath,
+      this.voteAverage,
+      this.voteCount});
 
   NextEpisodeToAir.fromJson(Map<String, dynamic> json) {
     airDate = json['air_date'];
@@ -428,12 +458,12 @@ class Seasons {
 
   Seasons(
       {this.airDate,
-        this.episodeCount,
-        this.id,
-        this.name,
-        this.overview,
-        this.posterPath,
-        this.seasonNumber});
+      this.episodeCount,
+      this.id,
+      this.name,
+      this.overview,
+      this.posterPath,
+      this.seasonNumber});
 
   Seasons.fromJson(Map<String, dynamic> json) {
     airDate = json['air_date'];

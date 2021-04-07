@@ -8,7 +8,9 @@ class UIConstants {
   static const all_release = 'Release';
   static const all_seasons = 'Seasons';
   static const all_episodes = 'Episodes';
-  static const error_message = 'Please check your connection';
+  static const all_cast = 'Cast';
+  static const all_as = 'as';
+  static const error_message = 'Oops! There was an error';
   static const font_family_ironclad = 'iron';
   static const font_family_metropolis = 'metropolis';
 }

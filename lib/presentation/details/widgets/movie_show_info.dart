@@ -8,8 +8,10 @@ import 'package:fun_box/bloc/details/movie_show_details_bloc.dart';
 import 'package:fun_box/bloc/details/movie_show_details_event.dart';
 import 'package:fun_box/bloc/details/movie_show_details_state.dart';
 import 'package:fun_box/config/configurations.dart';
+import 'package:fun_box/presentation/common/common_error_ui.dart';
 import 'package:fun_box/presentation/common/common_widgets.dart';
 import 'package:fun_box/presentation/ui_constants.dart';
+import 'package:fun_box/presentation/video/movie_show_trailer.dart';
 import 'package:fun_box/utils/app_utility.dart';
 import 'package:get_it/get_it.dart';
 
@@ -41,19 +43,20 @@ class _MovieShowInfoState extends State<MovieShowInfo> {
           if (state is InitialMovieShowDetailsState) {
             return _initState();
           } else if (state is SuccessMovieDetailsState) {
-            return _movieDetails(context, state.record);
+            return _movieDetails(context, state.record, type, id);
           } else if (state is SuccessShowDetailsState) {
-            return _showDetails(context, state.record);
+            return _showDetails(context, state.record, type, id);
           } else if (state is ErrorMovieShowDetailsState) {
-            return _errorState(context);
+            return _errorState();
           } else {
-            return _errorState(context);
+            return _errorState();
           }
         });
   }
 }
 
-Widget _movieDetails(BuildContext context, MovieDetailsRecord movieDetails) {
+Widget _movieDetails(BuildContext context, MovieDetailsRecord movieDetails,
+    String type, double id) {
   final height = MediaQuery.of(context).size.height;
   final width = MediaQuery.of(context).size.width;
   var genres = '';
@@ -68,18 +71,16 @@ Widget _movieDetails(BuildContext context, MovieDetailsRecord movieDetails) {
   return ListView(
     shrinkWrap: true,
     children: [
-      _backdropView(context, movieDetails.posterPath ?? "", height / 3, width),
-      _infoView(
-          genres,
-          movieDetails.title ?? "",
-          movieDetails.overview ?? "",
-          movieDetails.voteAverage,
-          movieDetails.releaseDate ?? "")
+      _backdropView(
+          context, movieDetails.posterPath ?? "", height / 3, width, type, id),
+      _infoView(genres, movieDetails.title ?? "", movieDetails.overview ?? "",
+          movieDetails.voteAverage, movieDetails.releaseDate ?? "")
     ],
   );
 }
 
-Widget _showDetails(BuildContext context, ShowDetailsRecord showDetails) {
+Widget _showDetails(BuildContext context, ShowDetailsRecord showDetails,
+    String type, double id) {
   final height = MediaQuery.of(context).size.height;
   final width = MediaQuery.of(context).size.width;
   var genres = '';
@@ -94,73 +95,74 @@ Widget _showDetails(BuildContext context, ShowDetailsRecord showDetails) {
   return ListView(
     shrinkWrap: true,
     children: [
-      _backdropView(context, showDetails.posterPath ?? "", height / 3, width),
-      _infoView(
-          genres,
-          showDetails.name ?? "",
-          showDetails.overview ?? "",
-          showDetails.voteAverage,
-          showDetails.firstAirDate ?? ""),
-      _seasonView(
-        showDetails.numberOfSeasons.toString(),
-        showDetails.numberOfEpisodes.toString()
-      )
+      _backdropView(
+          context, showDetails.posterPath ?? "", height / 3, width, type, id),
+      _infoView(genres, showDetails.name ?? "", showDetails.overview ?? "",
+          showDetails.voteAverage, showDetails.firstAirDate ?? ""),
+      _seasonView(showDetails.numberOfSeasons.toString(),
+          showDetails.numberOfEpisodes.toString())
     ],
   );
 }
 
-Widget _backdropView(
-    BuildContext context, String imagePath, double height, width) {
-  return Stack(
-    clipBehavior: Clip.none,
-    children: [
-      ClipPath(
-        clipper: CurvedBottomClipper(),
-        child: Container(
-          height: height,
-          width: width,
-          child: Card(
-            margin: EdgeInsets.zero,
-            elevation: 5.0,
-            child: Image.network(
-              '${Configurations.imageUrl}/${Configurations.imageSize}$imagePath',
-              fit: BoxFit.cover,
+Widget _backdropView(BuildContext context, String imagePath, double height,
+    width, String type, double id) {
+  return Container(
+    height: height + 40,
+    child: Stack(
+      clipBehavior: Clip.none,
+      children: [
+        ClipPath(
+          clipper: CurvedBottomClipper(),
+          child: Container(
+            height: height,
+            width: width,
+            child: Card(
+              margin: EdgeInsets.zero,
+              elevation: 5.0,
+              child: Image.network(
+                '${Configurations.imageUrl}/${Configurations.imageSize}$imagePath',
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),
-      ),
-      Padding(
-        padding: EdgeInsets.all(10.0),
-        child: GestureDetector(
-          onTap: () => _goToHomeScreen(context),
-          child: Icon(
-            Icons.arrow_back_rounded,
-            size: 40.0,
-          ),
-        ),
-      ),
-      Positioned(
-          left: 0,
-          right: 0,
-          bottom: -35.0,
-          child: FloatingActionButton(
-            elevation: 20.0,
-            backgroundColor: Colors.white,
-            onPressed: () {},
+        Padding(
+          padding: EdgeInsets.all(10.0),
+          child: GestureDetector(
+            onTap: () => _goToHomeScreen(context),
             child: Icon(
-              Icons.play_arrow_rounded,
-              color: Colors.red,
+              Icons.arrow_back_rounded,
               size: 40.0,
             ),
-          ))
-    ],
+          ),
+        ),
+        Positioned(
+            left: 0,
+            right: 0,
+            bottom: 20.0,
+            child:   FloatingActionButton(
+              elevation: 20.0,
+              backgroundColor: Colors.white,
+              onPressed: () {
+                debugPrint('Clicked');
+                _goToTrailerScreen(context, type, id);
+              },
+              child: Icon(
+                Icons.play_arrow_rounded,
+                color: Colors.red,
+                size: 40.0,
+              ),
+            ))
+      ],
+    ),
   );
 }
 
 Widget _infoView(String genres, String title, String overView, double? rating,
     String releaseDate) {
   return Container(
-    margin: EdgeInsets.only(top: 40.0, left: 16.0, right: 16.0),
+    margin: EdgeInsets.only(left: 16.0, right: 16.0),
     child: Column(
       children: [
         Align(
@@ -324,12 +326,18 @@ Widget _initState() {
   return CommonProgressBar();
 }
 
-Widget _errorState(BuildContext context) {
-  return Text('Error');
+Widget _errorState() {
+  return ErrorUI();
 }
 
 void _goToHomeScreen(BuildContext context) {
   Navigator.pop(context);
+}
+
+void _goToTrailerScreen(BuildContext context, String type, double id) {
+  Navigator.push(context, MaterialPageRoute(builder: (context) {
+    return MovieShowTrailer(type: type, id: id);
+  }));
 }
 
 class CurvedBottomClipper extends CustomClipper<Path> {

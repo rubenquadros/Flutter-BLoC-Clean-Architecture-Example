@@ -32,6 +32,7 @@ dependencies:
   flutter_bloc: ^7.0.0
   injectable: ^1.2.2
   get_it: ^6.0.0
+  youtube_player_flutter: ^8.0.0
 
   data:
     path: ./data
