@@ -4,7 +4,6 @@ import 'package:remote/datasource/movies_shows_data_source.dart';
 
 @Singleton(as: ConfigRepository)
 class ConfigRepositoryImpl extends ConfigRepository {
-
   final MoviesShowsDataSource moviesShowsDataSource;
 
   ConfigRepositoryImpl(this.moviesShowsDataSource);
@@ -13,5 +12,4 @@ class ConfigRepositoryImpl extends ConfigRepository {
   Future<dynamic> getConfig() {
     return moviesShowsDataSource.getConfig();
   }
-
 }

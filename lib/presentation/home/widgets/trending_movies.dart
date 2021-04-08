@@ -54,11 +54,11 @@ class _TrendingMoviesState extends State<TrendingMovies> {
           child: Row(
             children: [
               Text(
-                UIConstants.trending_movies,
+                UIConstants.trendingMovies,
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 20.0,
-                    fontFamily: UIConstants.font_family_ironclad,
+                    fontFamily: UIConstants.fontFamilyIronclad,
                     fontWeight: FontWeight.w700),
               ),
               Expanded(child: SizedBox()),

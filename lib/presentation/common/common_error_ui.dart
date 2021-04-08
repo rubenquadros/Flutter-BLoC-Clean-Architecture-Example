@@ -16,10 +16,10 @@ class ErrorUI extends StatelessWidget {
             ),
           ),
           Text(
-            UIConstants.error_message,
+            UIConstants.errorMessage,
             style: TextStyle(
                 fontSize: 14.0,
-                fontFamily: UIConstants.font_family_ironclad,
+                fontFamily: UIConstants.fontFamilyIronclad,
                 fontWeight: FontWeight.w400),
           )
         ],

@@ -2,6 +2,8 @@ import 'package:injectable/injectable.dart';
 import 'package:remote/http_client.dart';
 import 'package:remote/model/cast_request.dart';
 import 'package:remote/model/details_request.dart';
+import 'package:remote/model/person_credits_request.dart';
+import 'package:remote/model/person_info_request.dart';
 import 'package:remote/model/trailer_request.dart';
 import 'package:remote/model/trending_request.dart';
 import 'package:remote/util/api_constants.dart';
@@ -44,5 +46,18 @@ class MoviesShowsDataSourceImpl implements MoviesShowsDataSource {
     return httpClient.get(
         url:
             '${ApiConstants.base_url}/${request.type}/${request.id}/credits?api_key=$apiKey');
+  }
+
+  @override
+  Future<dynamic> getPersonCredits(PersonCreditsRequest request) {
+    return httpClient.get(
+        url:
+            '${ApiConstants.base_url}/person/${request.id}/combined_credits?api_key=$apiKey');
+  }
+
+  @override
+  Future<dynamic> getPersonInfo(PersonInfoRequest request) {
+    return httpClient.get(
+        url: '${ApiConstants.base_url}/person/${request.id}?api_key=$apiKey');
   }
 }

@@ -54,10 +54,10 @@ Widget _showCast(BuildContext context, CastRecord cast) {
       Align(
         alignment: Alignment.centerLeft,
         child: Text(
-          UIConstants.all_cast,
+          UIConstants.cast,
           style: TextStyle(
               color: Colors.black,
-              fontFamily: UIConstants.font_family_metropolis,
+              fontFamily: UIConstants.fontFamilyMetropolis,
               fontSize: 20.0,
               fontWeight: FontWeight.w700),
         ),
@@ -108,7 +108,7 @@ Widget _castViewCell(String name, String imagePath, String characterName) {
               name,
               style: TextStyle(
                   color: Colors.black,
-                  fontFamily: UIConstants.font_family_metropolis,
+                  fontFamily: UIConstants.fontFamilyMetropolis,
                   fontSize: 12.0,
                   fontWeight: FontWeight.w700),
             ),

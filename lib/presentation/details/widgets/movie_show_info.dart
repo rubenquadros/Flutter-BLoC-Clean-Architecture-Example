@@ -171,7 +171,7 @@ Widget _infoView(String genres, String title, String overView, double? rating,
             title,
             style: TextStyle(
                 color: Colors.black,
-                fontFamily: UIConstants.font_family_metropolis,
+                fontFamily: UIConstants.fontFamilyMetropolis,
                 fontSize: 24.0,
                 fontWeight: FontWeight.w700),
           ),
@@ -184,7 +184,7 @@ Widget _infoView(String genres, String title, String overView, double? rating,
               genres,
               style: TextStyle(
                   color: Colors.black,
-                  fontFamily: UIConstants.font_family_metropolis,
+                  fontFamily: UIConstants.fontFamilyMetropolis,
                   fontSize: 14.0,
                   fontWeight: FontWeight.w400),
             ),
@@ -197,7 +197,7 @@ Widget _infoView(String genres, String title, String overView, double? rating,
             child: Text(overView,
                 style: TextStyle(
                     color: Colors.black,
-                    fontFamily: UIConstants.font_family_metropolis,
+                    fontFamily: UIConstants.fontFamilyMetropolis,
                     fontSize: 16.0,
                     fontWeight: FontWeight.w400)),
           ),
@@ -209,10 +209,10 @@ Widget _infoView(String genres, String title, String overView, double? rating,
                 Padding(
                   padding: EdgeInsets.only(top: 16.0),
                   child: Text(
-                    UIConstants.all_rating,
+                    UIConstants.rating,
                     style: TextStyle(
                         color: Colors.black,
-                        fontFamily: UIConstants.font_family_metropolis,
+                        fontFamily: UIConstants.fontFamilyMetropolis,
                         fontSize: 16.0,
                         fontWeight: FontWeight.w400),
                   ),
@@ -223,7 +223,7 @@ Widget _infoView(String genres, String title, String overView, double? rating,
                     rating.toString(),
                     style: TextStyle(
                         color: Colors.black,
-                        fontFamily: UIConstants.font_family_metropolis,
+                        fontFamily: UIConstants.fontFamilyMetropolis,
                         fontSize: 16.0,
                         fontWeight: FontWeight.w700),
                   ),
@@ -236,10 +236,10 @@ Widget _infoView(String genres, String title, String overView, double? rating,
                 Padding(
                   padding: EdgeInsets.only(top: 16.0),
                   child: Text(
-                    UIConstants.all_release,
+                    UIConstants.release,
                     style: TextStyle(
                         color: Colors.black,
-                        fontFamily: UIConstants.font_family_metropolis,
+                        fontFamily: UIConstants.fontFamilyMetropolis,
                         fontSize: 16.0,
                         fontWeight: FontWeight.w400),
                   ),
@@ -249,7 +249,7 @@ Widget _infoView(String genres, String title, String overView, double? rating,
                   child: Text(AppUtility.getYearFromDate(releaseDate),
                       style: TextStyle(
                           color: Colors.black,
-                          fontFamily: UIConstants.font_family_metropolis,
+                          fontFamily: UIConstants.fontFamilyMetropolis,
                           fontSize: 16.0,
                           fontWeight: FontWeight.w700)),
                 )
@@ -271,10 +271,10 @@ Widget _seasonView(String seasons, String episodes) {
           Padding(
             padding: EdgeInsets.only(top: 8.0, right: 8.0),
             child: Text(
-              UIConstants.all_seasons,
+              UIConstants.seasons,
               style: TextStyle(
                   color: Colors.black,
-                  fontFamily: UIConstants.font_family_metropolis,
+                  fontFamily: UIConstants.fontFamilyMetropolis,
                   fontSize: 16.0,
                   fontWeight: FontWeight.w400),
             ),
@@ -285,7 +285,7 @@ Widget _seasonView(String seasons, String episodes) {
               seasons,
               style: TextStyle(
                   color: Colors.black,
-                  fontFamily: UIConstants.font_family_metropolis,
+                  fontFamily: UIConstants.fontFamilyMetropolis,
                   fontSize: 16.0,
                   fontWeight: FontWeight.w700),
             ),
@@ -297,10 +297,10 @@ Widget _seasonView(String seasons, String episodes) {
           Padding(
             padding: EdgeInsets.only(top: 8.0, left: 8.0),
             child: Text(
-              UIConstants.all_episodes,
+              UIConstants.episodes,
               style: TextStyle(
                   color: Colors.black,
-                  fontFamily: UIConstants.font_family_metropolis,
+                  fontFamily: UIConstants.fontFamilyMetropolis,
                   fontSize: 16.0,
                   fontWeight: FontWeight.w400),
             ),
@@ -311,7 +311,7 @@ Widget _seasonView(String seasons, String episodes) {
               episodes,
               style: TextStyle(
                   color: Colors.black,
-                  fontFamily: UIConstants.font_family_metropolis,
+                  fontFamily: UIConstants.fontFamilyMetropolis,
                   fontSize: 16.0,
                   fontWeight: FontWeight.w700),
             ),

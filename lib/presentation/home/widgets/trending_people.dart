@@ -53,11 +53,11 @@ class _TrendingPeopleState extends State {
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              UIConstants.trending_people,
+              UIConstants.trendingPeople,
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 20.0,
-                  fontFamily: UIConstants.font_family_ironclad,
+                  fontFamily: UIConstants.fontFamilyIronclad,
                   fontWeight: FontWeight.w700),
             ),
           ),
