@@ -72,9 +72,9 @@ Widget _movieDetails(BuildContext context, MovieDetailsRecord movieDetails,
     shrinkWrap: true,
     children: [
       _backdropView(
-          context, movieDetails.posterPath ?? "", height / 3, width, type, id),
-      _infoView(genres, movieDetails.title ?? "", movieDetails.overview ?? "",
-          movieDetails.voteAverage, movieDetails.releaseDate ?? "")
+          context, movieDetails.posterPath ?? '', height / 3, width, type, id),
+      _infoView(genres, movieDetails.title ?? '', movieDetails.overview ?? '',
+          movieDetails.voteAverage, movieDetails.releaseDate ?? '')
     ],
   );
 }
@@ -94,11 +94,12 @@ Widget _showDetails(BuildContext context, ShowDetailsRecord showDetails,
   }
   return ListView(
     shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(),
     children: [
       _backdropView(
-          context, showDetails.posterPath ?? "", height / 3, width, type, id),
-      _infoView(genres, showDetails.name ?? "", showDetails.overview ?? "",
-          showDetails.voteAverage, showDetails.firstAirDate ?? ""),
+          context, showDetails.posterPath ?? '', height / 3, width, type, id),
+      _infoView(genres, showDetails.name ?? '', showDetails.overview ?? '',
+          showDetails.voteAverage, showDetails.firstAirDate ?? ''),
       _seasonView(showDetails.numberOfSeasons.toString(),
           showDetails.numberOfEpisodes.toString())
     ],
@@ -130,7 +131,7 @@ Widget _backdropView(BuildContext context, String imagePath, double height,
         Padding(
           padding: EdgeInsets.all(10.0),
           child: GestureDetector(
-            onTap: () => _goToHomeScreen(context),
+            onTap: () => _navigateToHomeScreen(context),
             child: Icon(
               Icons.arrow_back_rounded,
               size: 40.0,
@@ -146,7 +147,7 @@ Widget _backdropView(BuildContext context, String imagePath, double height,
               backgroundColor: Colors.white,
               onPressed: () {
                 debugPrint('Clicked');
-                _goToTrailerScreen(context, type, id);
+                _navigateToTrailerScreen(context, type, id);
               },
               child: Icon(
                 Icons.play_arrow_rounded,
@@ -330,11 +331,11 @@ Widget _errorState() {
   return ErrorUI();
 }
 
-void _goToHomeScreen(BuildContext context) {
+void _navigateToHomeScreen(BuildContext context) {
   Navigator.pop(context);
 }
 
-void _goToTrailerScreen(BuildContext context, String type, double id) {
+void _navigateToTrailerScreen(BuildContext context, String type, double id) {
   Navigator.push(context, MaterialPageRoute(builder: (context) {
     return MovieShowTrailer(type: type, id: id);
   }));

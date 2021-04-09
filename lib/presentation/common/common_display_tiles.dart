@@ -27,7 +27,7 @@ class CommonDisplayTiles extends StatelessWidget {
           itemBuilder: (context, index) {
             return _trendingMoviesShowsCell(
                 context,
-                results?[index].posterPath ?? "",
+                results?[index].posterPath ?? '',
                 type,
                 results?[index].id?.toDouble() ?? 0);
           }),

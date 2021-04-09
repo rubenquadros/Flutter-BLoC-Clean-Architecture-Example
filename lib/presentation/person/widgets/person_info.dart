@@ -51,18 +51,16 @@ class _PersonInfoState extends State<PersonInfo> {
 }
 
 Widget _showPersonalInfo(BuildContext context, PersonInfoRecord personalInfo) {
-  ScrollController _controller = ScrollController();
   return ListView(
     shrinkWrap: true,
     physics: const NeverScrollableScrollPhysics(),
-    controller: _controller,
     children: [
       Padding(
         padding: EdgeInsets.only(top: 10.0, left: 10.0),
         child: Align(
           alignment: Alignment.centerLeft,
           child: GestureDetector(
-            onTap: () => _goToHomeScreen(context),
+            onTap: () => _navigateToHomeScreen(context),
             child: Icon(
               Icons.arrow_back_rounded,
               size: 40.0,
@@ -137,6 +135,6 @@ Widget _errorState() {
   return ErrorUI();
 }
 
-void _goToHomeScreen(BuildContext context) {
+void _navigateToHomeScreen(BuildContext context) {
   Navigator.pop(context);
 }

@@ -7,6 +7,7 @@ import 'package:fun_box/bloc/cast/movie_show_cast_state.dart';
 import 'package:fun_box/config/configurations.dart';
 import 'package:fun_box/presentation/common/common_error_ui.dart';
 import 'package:fun_box/presentation/common/common_widgets.dart';
+import 'package:fun_box/presentation/person/person_details.dart';
 import 'package:fun_box/presentation/ui_constants.dart';
 import 'package:get_it/get_it.dart';
 
@@ -78,6 +79,8 @@ Widget _castView(BuildContext context, CastRecord castCrew) {
         itemCount: castCrew.cast?.length,
         itemBuilder: (context, index) {
           return _castViewCell(
+              context,
+              castCrew.cast?[index].id?.toDouble() ?? 0,
               castCrew.cast?[index].name ?? '',
               castCrew.cast?[index].profilePath ?? '',
               castCrew.cast?[index].character ?? '');
@@ -85,16 +88,20 @@ Widget _castView(BuildContext context, CastRecord castCrew) {
   );
 }
 
-Widget _castViewCell(String name, String imagePath, String characterName) {
+Widget _castViewCell(BuildContext context, double id, String name,
+    String imagePath, String characterName) {
   return Column(
     children: [
       Padding(
         padding: EdgeInsets.only(top: 16.0),
-        child: CircleAvatar(
-          radius: 60.0,
-          backgroundColor: Colors.black12,
-          backgroundImage: NetworkImage(
-              '${Configurations.imageUrl}/${Configurations.imageSize}$imagePath'),
+        child: GestureDetector(
+          onTap: () => _navigateToPersonDetails(context, id, imagePath),
+          child: CircleAvatar(
+            radius: 60.0,
+            backgroundColor: Colors.black12,
+            backgroundImage: NetworkImage(
+                '${Configurations.imageUrl}/${Configurations.imageSize}$imagePath'),
+          ),
         ),
       ),
       Expanded(
@@ -125,4 +132,13 @@ Widget _initState() {
 
 Widget _errorState() {
   return ErrorUI();
+}
+
+void _navigateToPersonDetails(
+    BuildContext context, double id, String imagePath) {
+  if (imagePath.isNotEmpty) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return PersonDetails(id: id);
+    }));
+  }
 }

@@ -27,7 +27,7 @@ class CommonPeopleTiles extends StatelessWidget {
           itemBuilder: (context, index) {
             return _trendingPeopleCell(
                 context,
-                results?[index].profilePath ?? "",
+                results?[index].profilePath ?? '',
                 results?[index].id?.toDouble() ?? 0);
           }),
     );
