@@ -1,12 +1,12 @@
-class TrendingRecord {
+class MoviesShowsRecord {
   int? page;
   List<Results>? results;
   int? totalPages;
   int? totalResults;
 
-  TrendingRecord({this.page, this.results, this.totalPages, this.totalResults});
+  MoviesShowsRecord({this.page, this.results, this.totalPages, this.totalResults});
 
-  TrendingRecord.fromJson(Map<String, dynamic> json) {
+  MoviesShowsRecord.fromJson(Map<String, dynamic> json) {
     page = json['page'];
     if (json['results'] != null) {
       results = <Results>[];
@@ -78,7 +78,7 @@ class Results {
     originalTitle = json['original_title'];
     posterPath = json['poster_path'];
     video = json['video'];
-    voteAverage = json['vote_average'];
+    voteAverage = json['vote_average'].toDouble();
     overview = json['overview'];
     id = json['id'];
     voteCount = json['vote_count'];
@@ -86,8 +86,10 @@ class Results {
     backdropPath = json['backdrop_path'];
     releaseDate = json['release_date'];
     genreIds = json['genre_ids'].cast<int>();
-    popularity = json['popularity'];
-    mediaType = json['media_type'];
+    popularity = json['popularity'].toDouble();
+    if (json['media_type'] != null) {
+      mediaType = json['media_type'];
+    }
     if (json['first_air_date'] != null) {
       firstAirDate = json['first_air_date'];
     }

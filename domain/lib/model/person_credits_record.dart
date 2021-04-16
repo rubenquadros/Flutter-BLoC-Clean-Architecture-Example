@@ -98,7 +98,7 @@ class Cast {
     id = json['id'];
     video = json['video'];
     voteCount = json['vote_count'];
-    voteAverage = json['vote_average'];
+    voteAverage = json['vote_average'].toDouble();
     title = json['title'];
     releaseDate = json['release_date'];
     originalLanguage = json['original_language'];
@@ -108,7 +108,7 @@ class Cast {
     adult = json['adult'];
     overview = json['overview'];
     posterPath = json['poster_path'];
-    popularity = json['popularity'];
+    popularity = json['popularity'].toDouble();
     character = json['character'];
     creditId = json['credit_id'];
     order = json['order'];
@@ -211,7 +211,7 @@ class Crew {
     id = json['id'];
     video = json['video'];
     voteCount = json['vote_count'];
-    voteAverage = json['vote_average'];
+    voteAverage = json['vote_average'].toDouble();
     title = json['title'];
     releaseDate = json['release_date'];
     originalLanguage = json['original_language'];
@@ -221,7 +221,7 @@ class Crew {
     adult = json['adult'];
     overview = json['overview'];
     posterPath = json['poster_path'];
-    popularity = json['popularity'];
+    popularity = json['popularity'].toDouble();
     creditId = json['credit_id'];
     department = json['department'];
     job = json['job'];

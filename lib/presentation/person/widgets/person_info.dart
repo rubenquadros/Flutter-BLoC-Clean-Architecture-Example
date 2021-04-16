@@ -48,93 +48,94 @@ class _PersonInfoState extends State<PersonInfo> {
           }
         });
   }
-}
 
-Widget _showPersonalInfo(BuildContext context, PersonInfoRecord personalInfo) {
-  return ListView(
-    shrinkWrap: true,
-    physics: const NeverScrollableScrollPhysics(),
-    children: [
-      Padding(
-        padding: EdgeInsets.only(top: 10.0, left: 10.0),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: GestureDetector(
-            onTap: () => _navigateToHomeScreen(context),
-            child: Icon(
-              Icons.arrow_back_rounded,
-              size: 40.0,
+  Widget _showPersonalInfo(
+      BuildContext context, PersonInfoRecord personalInfo) {
+    return ListView(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: 10.0, left: 10.0),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: GestureDetector(
+              onTap: () => _navigateToHomeScreen(context),
+              child: Icon(
+                Icons.arrow_back_rounded,
+                size: 40.0,
+              ),
             ),
           ),
         ),
-      ),
-      Center(
-        child: CircleAvatar(
-          radius: 80.0,
-          backgroundColor: Colors.black12,
-          backgroundImage: NetworkImage(
-              '${Configurations.imageUrl}/${Configurations.imageSize}${personalInfo.profilePath}'),
+        Center(
+          child: CircleAvatar(
+            radius: 80.0,
+            backgroundColor: Colors.black12,
+            backgroundImage: NetworkImage(
+                '${Configurations.imageUrl}/${Configurations.imageSize}${personalInfo.profilePath}'),
+          ),
         ),
-      ),
-      Padding(
-        padding: EdgeInsets.all(10.0),
-        child: Center(
+        Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Center(
+            child: Text(
+              personalInfo.name ?? '',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: UIConstants.fontFamilyMetropolis,
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w700),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(10.0),
           child: Text(
-            personalInfo.name ?? '',
+            personalInfo.placeOfBirth ?? '',
             style: TextStyle(
                 color: Colors.black,
                 fontFamily: UIConstants.fontFamilyMetropolis,
-                fontSize: 24.0,
+                fontSize: 16.0,
                 fontWeight: FontWeight.w700),
           ),
         ),
-      ),
-      Padding(
-        padding: EdgeInsets.all(10.0),
-        child: Text(
-          personalInfo.placeOfBirth ?? '',
-          style: TextStyle(
-              color: Colors.black,
-              fontFamily: UIConstants.fontFamilyMetropolis,
-              fontSize: 16.0,
-              fontWeight: FontWeight.w700),
+        Padding(
+          padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
+          child: Text(
+            AppUtility.getCorrectDate(personalInfo.birthday ?? ''),
+            style: TextStyle(
+                color: Colors.black,
+                fontFamily: UIConstants.fontFamilyMetropolis,
+                fontSize: 16.0,
+                fontWeight: FontWeight.w700),
+          ),
         ),
-      ),
-      Padding(
-        padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
-        child: Text(
-          AppUtility.getCorrectDate(personalInfo.birthday ?? ''),
-          style: TextStyle(
-              color: Colors.black,
-              fontFamily: UIConstants.fontFamilyMetropolis,
-              fontSize: 16.0,
-              fontWeight: FontWeight.w700),
-        ),
-      ),
-      Expanded(
-          child: Padding(
-        padding: EdgeInsets.all(10.0),
-        child: Text(
-          personalInfo.biography ?? '',
-          style: TextStyle(
-              color: Colors.black,
-              fontFamily: UIConstants.fontFamilyMetropolis,
-              fontSize: 16.0,
-              fontWeight: FontWeight.w400),
-        ),
-      ))
-    ],
-  );
-}
+        Expanded(
+            child: Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Text(
+            personalInfo.biography ?? '',
+            style: TextStyle(
+                color: Colors.black,
+                fontFamily: UIConstants.fontFamilyMetropolis,
+                fontSize: 16.0,
+                fontWeight: FontWeight.w400),
+          ),
+        ))
+      ],
+    );
+  }
 
-Widget _initState() {
-  return CommonProgressBar();
-}
+  Widget _initState() {
+    return CommonProgressBar();
+  }
 
-Widget _errorState() {
-  return ErrorUI();
-}
+  Widget _errorState() {
+    return ErrorUI();
+  }
 
-void _navigateToHomeScreen(BuildContext context) {
-  Navigator.pop(context);
+  void _navigateToHomeScreen(BuildContext context) {
+    Navigator.pop(context);
+  }
 }

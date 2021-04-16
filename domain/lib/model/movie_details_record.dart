@@ -77,7 +77,7 @@ class MovieDetailsRecord {
     originalLanguage = json['original_language'];
     originalTitle = json['original_title'];
     overview = json['overview'];
-    popularity = json['popularity'];
+    popularity = json['popularity'].toDouble();
     posterPath = json['poster_path'];
     if (json['production_companies'] != null) {
       productionCompanies = <ProductionCompanies>[];
@@ -116,7 +116,7 @@ class MovieDetailsRecord {
     tagline = json['tagline'];
     title = json['title'];
     video = json['video'];
-    voteAverage = json['vote_average'];
+    voteAverage = json['vote_average'].toDouble();
     voteCount = json['vote_count'];
   }
 

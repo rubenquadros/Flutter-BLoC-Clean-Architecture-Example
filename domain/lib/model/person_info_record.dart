@@ -43,7 +43,7 @@ class PersonInfoRecord {
     knownForDepartment = json['known_for_department'];
     name = json['name'];
     placeOfBirth = json['place_of_birth'];
-    popularity = json['popularity'];
+    popularity = json['popularity'].toDouble();
     profilePath = json['profile_path'];
   }
 

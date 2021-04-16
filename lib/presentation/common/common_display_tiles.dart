@@ -1,4 +1,4 @@
-import 'package:domain/model/trending_record.dart';
+import 'package:domain/model/movies_shows_record.dart';
 import 'package:flutter/material.dart';
 import 'package:fun_box/config/configurations.dart';
 import 'package:fun_box/presentation/details/movie_show_details.dart';
@@ -33,30 +33,30 @@ class CommonDisplayTiles extends StatelessWidget {
           }),
     );
   }
-}
 
-Widget _trendingMoviesShowsCell(
-    BuildContext context, String imagePath, String type, double id) {
-  return GestureDetector(
-    onTap: () => _navigateToDetails(context, type, id),
-    child: Card(
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      elevation: 5.0,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.0))),
-      child: Image.network(
-        '${Configurations.imageUrl}/${Configurations.imageSize}$imagePath',
-        fit: BoxFit.cover,
+  Widget _trendingMoviesShowsCell(
+      BuildContext context, String imagePath, String type, double id) {
+    return GestureDetector(
+      onTap: () => _navigateToDetails(context, type, id),
+      child: Card(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        elevation: 5.0,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10.0))),
+        child: Image.network(
+          '${Configurations.imageUrl}/${Configurations.imageSize}$imagePath',
+          fit: BoxFit.cover,
+        ),
       ),
-    ),
-  );
-}
-
-void _navigateToDetails(BuildContext context, String type, double id) {
-  Navigator.push(context, MaterialPageRoute(builder: (context) {
-    return MovieShowDetails(
-      type: type,
-      id: id,
     );
-  }));
+  }
+
+  void _navigateToDetails(BuildContext context, String type, double id) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return MovieShowDetails(
+        type: type,
+        id: id,
+      );
+    }));
+  }
 }

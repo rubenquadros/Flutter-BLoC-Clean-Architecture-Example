@@ -24,6 +24,6 @@ class TrendingRepositoryImpl implements TrendingRepository {
   @override
   Future getTrendingPeople(String type) {
     return moviesShowsDataSource
-        .getTrending(TrendingRequest(type: type));
+        .getTrendingPeople(TrendingRequest(type: type));
   }
 }

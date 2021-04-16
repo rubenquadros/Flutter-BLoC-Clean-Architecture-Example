@@ -1,4 +1,4 @@
-import 'package:domain/model/trending_record.dart';
+import 'package:domain/model/movies_shows_record.dart';
 import 'package:domain/model/trending_people_record.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,7 +40,7 @@ class TrendingBloc extends Bloc<TrendingEvent, TrendingState> {
   Stream<TrendingState> _fetchTrendingMovies(String type) async* {
     try {
       var response = await trendingMoviesUseCase.getTrendingMovies(type: type);
-      yield SuccessTrendingMoviesState(TrendingRecord.fromJson(response));
+      yield SuccessTrendingMoviesState(MoviesShowsRecord.fromJson(response));
     } catch (exception) {
       debugPrint('Error ${exception.toString()}');
       yield ErrorMoviesShowsState();
@@ -50,7 +50,7 @@ class TrendingBloc extends Bloc<TrendingEvent, TrendingState> {
   Stream<TrendingState> _fetchTrendingShows(String type) async* {
     try {
       var response = await trendingShowsUseCase.getTrendingShows(type: type);
-      yield SuccessTrendingShowsState(TrendingRecord.fromJson(response));
+      yield SuccessTrendingShowsState(MoviesShowsRecord.fromJson(response));
     } catch (exception) {
       debugPrint('Error ${exception.toString()}');
       yield ErrorMoviesShowsState();

@@ -118,7 +118,7 @@ class ShowDetailsRecord {
     originalLanguage = json['original_language'];
     originalName = json['original_name'];
     overview = json['overview'];
-    popularity = json['popularity'];
+    popularity = json['popularity'].toDouble();
     posterPath = json['poster_path'];
     if (json['production_companies'] != null) {
       productionCompanies = <ProductionCompanies>[];
@@ -163,7 +163,7 @@ class ShowDetailsRecord {
     status = json['status'];
     tagline = json['tagline'];
     type = json['type'];
-    voteAverage = json['vote_average'];
+    voteAverage = json['vote_average'].toDouble();
     voteCount = json['vote_count'];
   }
 
@@ -305,7 +305,7 @@ class LastEpisodeToAir {
     productionCode = json['production_code'];
     seasonNumber = json['season_number'];
     stillPath = json['still_path'];
-    voteAverage = json['vote_average'];
+    voteAverage = json['vote_average'].toDouble();
     voteCount = json['vote_count'];
   }
 
@@ -358,7 +358,7 @@ class NextEpisodeToAir {
     productionCode = json['production_code'];
     seasonNumber = json['season_number'];
     stillPath = json['still_path'];
-    voteAverage = json['vote_average'];
+    voteAverage = json['vote_average'].toDouble();
     voteCount = json['vote_count'];
   }
 

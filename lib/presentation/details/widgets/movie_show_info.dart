@@ -53,292 +53,292 @@ class _MovieShowInfoState extends State<MovieShowInfo> {
           }
         });
   }
-}
 
-Widget _movieDetails(BuildContext context, MovieDetailsRecord movieDetails,
-    String type, double id) {
-  final height = MediaQuery.of(context).size.height;
-  final width = MediaQuery.of(context).size.width;
-  var genres = '';
-  if (movieDetails.genres != null && movieDetails.genres!.length > 0) {
-    for (var i = 0; i < movieDetails.genres!.length; i++) {
-      genres = genres + movieDetails.genres![i].name!.trim();
-      if (i != movieDetails.genres!.length - 1) {
-        genres = '$genres, ';
+  Widget _movieDetails(BuildContext context, MovieDetailsRecord movieDetails,
+      String type, double id) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    var genres = '';
+    if (movieDetails.genres != null && movieDetails.genres!.length > 0) {
+      for (var i = 0; i < movieDetails.genres!.length; i++) {
+        genres = genres + movieDetails.genres![i].name!.trim();
+        if (i != movieDetails.genres!.length - 1) {
+          genres = '$genres, ';
+        }
       }
     }
-  }
-  return ListView(
-    shrinkWrap: true,
-    children: [
-      _backdropView(
-          context, movieDetails.posterPath ?? '', height / 3, width, type, id),
-      _infoView(genres, movieDetails.title ?? '', movieDetails.overview ?? '',
-          movieDetails.voteAverage, movieDetails.releaseDate ?? '')
-    ],
-  );
-}
-
-Widget _showDetails(BuildContext context, ShowDetailsRecord showDetails,
-    String type, double id) {
-  final height = MediaQuery.of(context).size.height;
-  final width = MediaQuery.of(context).size.width;
-  var genres = '';
-  if (showDetails.genres != null && showDetails.genres!.length > 0) {
-    for (var i = 0; i < showDetails.genres!.length; i++) {
-      genres = genres + showDetails.genres![i].name!.trim();
-      if (i != showDetails.genres!.length - 1) {
-        genres = '$genres, ';
-      }
-    }
-  }
-  return ListView(
-    shrinkWrap: true,
-    physics: const NeverScrollableScrollPhysics(),
-    children: [
-      _backdropView(
-          context, showDetails.posterPath ?? '', height / 3, width, type, id),
-      _infoView(genres, showDetails.name ?? '', showDetails.overview ?? '',
-          showDetails.voteAverage, showDetails.firstAirDate ?? ''),
-      _seasonView(showDetails.numberOfSeasons.toString(),
-          showDetails.numberOfEpisodes.toString())
-    ],
-  );
-}
-
-Widget _backdropView(BuildContext context, String imagePath, double height,
-    width, String type, double id) {
-  return Container(
-    height: height + 40,
-    child: Stack(
-      clipBehavior: Clip.none,
+    return ListView(
+      shrinkWrap: true,
       children: [
-        ClipPath(
-          clipper: CurvedBottomClipper(),
-          child: Container(
-            height: height,
-            width: width,
-            child: Card(
-              margin: EdgeInsets.zero,
-              elevation: 5.0,
-              child: Image.network(
-                '${Configurations.imageUrl}/${Configurations.imageSize}$imagePath',
-                fit: BoxFit.cover,
+        _backdropView(context, movieDetails.posterPath ?? '', height / 3, width,
+            type, id),
+        _infoView(genres, movieDetails.title ?? '', movieDetails.overview ?? '',
+            movieDetails.voteAverage, movieDetails.releaseDate ?? '')
+      ],
+    );
+  }
+
+  Widget _showDetails(BuildContext context, ShowDetailsRecord showDetails,
+      String type, double id) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    var genres = '';
+    if (showDetails.genres != null && showDetails.genres!.length > 0) {
+      for (var i = 0; i < showDetails.genres!.length; i++) {
+        genres = genres + showDetails.genres![i].name!.trim();
+        if (i != showDetails.genres!.length - 1) {
+          genres = '$genres, ';
+        }
+      }
+    }
+    return ListView(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      children: [
+        _backdropView(
+            context, showDetails.posterPath ?? '', height / 3, width, type, id),
+        _infoView(genres, showDetails.name ?? '', showDetails.overview ?? '',
+            showDetails.voteAverage, showDetails.firstAirDate ?? ''),
+        _seasonView(showDetails.numberOfSeasons.toString(),
+            showDetails.numberOfEpisodes.toString())
+      ],
+    );
+  }
+
+  Widget _backdropView(BuildContext context, String imagePath, double height,
+      width, String type, double id) {
+    return Container(
+      height: height + 40,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          ClipPath(
+            clipper: CurvedBottomClipper(),
+            child: Container(
+              height: height,
+              width: width,
+              child: Card(
+                margin: EdgeInsets.zero,
+                elevation: 5.0,
+                child: Image.network(
+                  '${Configurations.imageUrl}/${Configurations.imageSize}$imagePath',
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.all(10.0),
-          child: GestureDetector(
-            onTap: () => _navigateToHomeScreen(context),
-            child: Icon(
-              Icons.arrow_back_rounded,
-              size: 40.0,
-            ),
-          ),
-        ),
-        Positioned(
-            left: 0,
-            right: 0,
-            bottom: 20.0,
-            child:   FloatingActionButton(
-              elevation: 20.0,
-              backgroundColor: Colors.white,
-              onPressed: () {
-                debugPrint('Clicked');
-                _navigateToTrailerScreen(context, type, id);
-              },
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: GestureDetector(
+              onTap: () => _navigateToHomeScreen(context),
               child: Icon(
-                Icons.play_arrow_rounded,
-                color: Colors.red,
+                Icons.arrow_back_rounded,
                 size: 40.0,
               ),
-            ))
-      ],
-    ),
-  );
-}
-
-Widget _infoView(String genres, String title, String overView, double? rating,
-    String releaseDate) {
-  return Container(
-    margin: EdgeInsets.only(left: 16.0, right: 16.0),
-    child: Column(
-      children: [
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            title,
-            style: TextStyle(
-                color: Colors.black,
-                fontFamily: UIConstants.fontFamilyMetropolis,
-                fontSize: 24.0,
-                fontWeight: FontWeight.w700),
+            ),
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
-          child: Align(
+          Positioned(
+              left: 0,
+              right: 0,
+              bottom: 20.0,
+              child: FloatingActionButton(
+                elevation: 20.0,
+                backgroundColor: Colors.white,
+                onPressed: () {
+                  debugPrint('Clicked');
+                  _navigateToTrailerScreen(context, type, id);
+                },
+                child: Icon(
+                  Icons.play_arrow_rounded,
+                  color: Colors.red,
+                  size: 40.0,
+                ),
+              ))
+        ],
+      ),
+    );
+  }
+
+  Widget _infoView(String genres, String title, String overView, double? rating,
+      String releaseDate) {
+    return Container(
+      margin: EdgeInsets.only(left: 16.0, right: 16.0),
+      child: Column(
+        children: [
+          Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              genres,
+              title,
               style: TextStyle(
                   color: Colors.black,
                   fontFamily: UIConstants.fontFamilyMetropolis,
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w400),
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w700),
             ),
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 8.0),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(overView,
+          Padding(
+            padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                genres,
                 style: TextStyle(
                     color: Colors.black,
                     fontFamily: UIConstants.fontFamilyMetropolis,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w400)),
-          ),
-        ),
-        Row(
-          children: [
-            Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 16.0),
-                  child: Text(
-                    UIConstants.rating,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: UIConstants.fontFamilyMetropolis,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w400),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 8.0),
-                  child: Text(
-                    rating.toString(),
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: UIConstants.fontFamilyMetropolis,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w700),
-                  ),
-                )
-              ],
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w400),
+              ),
             ),
-            Expanded(child: SizedBox()),
-            Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 16.0),
-                  child: Text(
-                    UIConstants.release,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: UIConstants.fontFamilyMetropolis,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w400),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 8.0),
-                  child: Text(AppUtility.getYearFromDate(releaseDate),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 8.0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(overView,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: UIConstants.fontFamilyMetropolis,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w400)),
+            ),
+          ),
+          Row(
+            children: [
+              Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 16.0),
+                    child: Text(
+                      UIConstants.rating,
                       style: TextStyle(
                           color: Colors.black,
                           fontFamily: UIConstants.fontFamilyMetropolis,
                           fontSize: 16.0,
-                          fontWeight: FontWeight.w700)),
-                )
-              ],
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      rating.toString(),
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: UIConstants.fontFamilyMetropolis,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  )
+                ],
+              ),
+              Expanded(child: SizedBox()),
+              Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 16.0),
+                    child: Text(
+                      UIConstants.release,
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: UIConstants.fontFamilyMetropolis,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 8.0),
+                    child: Text(AppUtility.getYearFromDate(releaseDate),
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: UIConstants.fontFamilyMetropolis,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w700)),
+                  )
+                ],
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _seasonView(String seasons, String episodes) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 8.0, right: 8.0),
+              child: Text(
+                UIConstants.seasons,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: UIConstants.fontFamilyMetropolis,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w400),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 8.0),
+              child: Text(
+                seasons,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: UIConstants.fontFamilyMetropolis,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w700),
+              ),
+            )
+          ],
+        ),
+        Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 8.0, left: 8.0),
+              child: Text(
+                UIConstants.episodes,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: UIConstants.fontFamilyMetropolis,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w400),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 8.0),
+              child: Text(
+                episodes,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: UIConstants.fontFamilyMetropolis,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w700),
+              ),
             )
           ],
         )
       ],
-    ),
-  );
-}
+    );
+  }
 
-Widget _seasonView(String seasons, String episodes) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: 8.0, right: 8.0),
-            child: Text(
-              UIConstants.seasons,
-              style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: UIConstants.fontFamilyMetropolis,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w400),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 8.0),
-            child: Text(
-              seasons,
-              style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: UIConstants.fontFamilyMetropolis,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w700),
-            ),
-          )
-        ],
-      ),
-      Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: 8.0, left: 8.0),
-            child: Text(
-              UIConstants.episodes,
-              style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: UIConstants.fontFamilyMetropolis,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w400),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 8.0),
-            child: Text(
-              episodes,
-              style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: UIConstants.fontFamilyMetropolis,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w700),
-            ),
-          )
-        ],
-      )
-    ],
-  );
-}
+  Widget _initState() {
+    return CommonProgressBar();
+  }
 
-Widget _initState() {
-  return CommonProgressBar();
-}
+  Widget _errorState() {
+    return ErrorUI();
+  }
 
-Widget _errorState() {
-  return ErrorUI();
-}
+  void _navigateToHomeScreen(BuildContext context) {
+    Navigator.pop(context);
+  }
 
-void _navigateToHomeScreen(BuildContext context) {
-  Navigator.pop(context);
-}
-
-void _navigateToTrailerScreen(BuildContext context, String type, double id) {
-  Navigator.push(context, MaterialPageRoute(builder: (context) {
-    return MovieShowTrailer(type: type, id: id);
-  }));
+  void _navigateToTrailerScreen(BuildContext context, String type, double id) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return MovieShowTrailer(type: type, id: id);
+    }));
+  }
 }
 
 class CurvedBottomClipper extends CustomClipper<Path> {

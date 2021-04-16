@@ -72,7 +72,7 @@ class Results {
     name = json['name'];
     gender = json['gender'];
     id = json['id'];
-    popularity = json['popularity'];
+    popularity = json['popularity'].toDouble();
     mediaType = json['media_type'];
   }
 
@@ -135,8 +135,8 @@ class KnownFor {
     posterPath = json['poster_path'];
     title = json['title'];
     video = json['video'];
-    voteAverage = json['vote_average'];
-    popularity = json['popularity'];
+    voteAverage = json['vote_average'].toDouble();
+    popularity = json['popularity'].toDouble();
     overview = json['overview'];
     releaseDate = json['release_date'];
     adult = json['adult'];

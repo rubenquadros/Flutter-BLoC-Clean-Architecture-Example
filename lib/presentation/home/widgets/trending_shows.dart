@@ -1,4 +1,4 @@
-import 'package:domain/model/trending_record.dart';
+import 'package:domain/model/movies_shows_record.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fun_box/bloc/all/trending_bloc.dart';
@@ -7,6 +7,7 @@ import 'package:fun_box/bloc/all/trending_state.dart';
 import 'package:fun_box/presentation/common/common_display_tiles.dart';
 import 'package:fun_box/presentation/common/common_error_ui.dart';
 import 'package:fun_box/presentation/common/common_widgets.dart';
+import 'package:fun_box/presentation/movieshow/movies_shows.dart';
 import 'package:fun_box/utils/app_constants.dart';
 import 'package:get_it/get_it.dart';
 
@@ -46,7 +47,7 @@ class _TrendingShowsState extends State<TrendingShows> {
     );
   }
 
-  Widget _trendingShows(BuildContext context, TrendingRecord trendingMovies) {
+  Widget _trendingShows(BuildContext context, MoviesShowsRecord trendingShows) {
     final width = MediaQuery.of(context).size.width;
     return Column(
       children: [
@@ -63,17 +64,20 @@ class _TrendingShowsState extends State<TrendingShows> {
                     fontWeight: FontWeight.w700),
               ),
               Expanded(child: SizedBox()),
-              Icon(
-                Icons.arrow_right_alt_rounded,
-                size: 40.0,
+              GestureDetector(
+                onTap: () => _navigateToShows(context),
+                child: Icon(
+                  Icons.arrow_right_alt_rounded,
+                  size: 40.0,
+                ),
               )
             ],
           ),
         ),
         CommonDisplayTiles(
           width: width,
-          itemCount: trendingMovies.results?.length ?? 0,
-          results: trendingMovies.results,
+          itemCount: trendingShows.results?.length ?? 0,
+          results: trendingShows.results,
           type: AppConstants.tvShow,
         )
       ],
@@ -86,5 +90,11 @@ class _TrendingShowsState extends State<TrendingShows> {
 
   Widget _error() {
     return ErrorUI();
+  }
+
+  void _navigateToShows(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return MoviesShows(type:  AppConstants.tvShow);
+    }));
   }
 }

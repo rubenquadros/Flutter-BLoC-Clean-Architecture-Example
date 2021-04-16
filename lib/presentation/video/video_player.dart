@@ -46,35 +46,35 @@ class _VideoPlayerState extends State<VideoPlayer> {
           }
         });
   }
-}
 
-Widget _playTrailer(TrailerRecord trailers) {
-  var trailer = '';
-  if (trailers.results != null && trailers.results!.length > 0) {
-    for (var i = 0; i < trailers.results!.length; i++) {
-      if (trailers.results![i].name == AppConstants.trailer) {
-        trailer = trailers.results![i].key ?? '';
+  Widget _playTrailer(TrailerRecord trailers) {
+    var trailer = '';
+    if (trailers.results != null && trailers.results!.length > 0) {
+      for (var i = 0; i < trailers.results!.length; i++) {
+        if (trailers.results![i].name == AppConstants.trailer) {
+          trailer = trailers.results![i].key ?? '';
+        }
+      }
+      if (trailer.isEmpty) {
+        trailer = trailers.results![0].key ?? '';
       }
     }
-    if (trailer.isEmpty) {
-      trailer = trailers.results![0].key ?? '';
-    }
+
+    YoutubePlayerController _controller = YoutubePlayerController(
+        initialVideoId: trailer,
+        flags: YoutubePlayerFlags(autoPlay: true, loop: true));
+    return Container(
+      child: YoutubePlayer(
+        controller: _controller,
+      ),
+    );
   }
 
-  YoutubePlayerController _controller = YoutubePlayerController(
-      initialVideoId: trailer,
-      flags: YoutubePlayerFlags(autoPlay: true, loop: true));
-  return Container(
-    child: YoutubePlayer(
-      controller: _controller,
-    ),
-  );
-}
+  Widget _initState() {
+    return CommonProgressBar();
+  }
 
-Widget _initState() {
-  return CommonProgressBar();
-}
-
-Widget _errorState() {
-  return ErrorUI();
+  Widget _errorState() {
+    return ErrorUI();
+  }
 }

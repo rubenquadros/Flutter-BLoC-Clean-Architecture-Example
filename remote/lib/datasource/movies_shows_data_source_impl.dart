@@ -4,6 +4,7 @@ import 'package:remote/model/cast_request.dart';
 import 'package:remote/model/details_request.dart';
 import 'package:remote/model/person_credits_request.dart';
 import 'package:remote/model/person_info_request.dart';
+import 'package:remote/model/popular_movies_shows_request.dart';
 import 'package:remote/model/trailer_request.dart';
 import 'package:remote/model/trending_request.dart';
 import 'package:remote/util/api_constants.dart';
@@ -25,6 +26,13 @@ class MoviesShowsDataSourceImpl implements MoviesShowsDataSource {
     return httpClient.get(
         url:
             '${ApiConstants.base_url}/trending/${request.type}/day?api_key=$apiKey');
+  }
+
+  @override
+  Future getTrendingPeople(TrendingRequest request) {
+    return httpClient.get(
+        url:
+        '${ApiConstants.base_url}/trending/${request.type}/week?api_key=$apiKey');
   }
 
   @override
@@ -59,5 +67,24 @@ class MoviesShowsDataSourceImpl implements MoviesShowsDataSource {
   Future<dynamic> getPersonInfo(PersonInfoRequest request) {
     return httpClient.get(
         url: '${ApiConstants.base_url}/person/${request.id}?api_key=$apiKey');
+  }
+
+  @override
+  Future<dynamic> getCurrentPlayingMovies() {
+    return httpClient.get(
+        url: '${ApiConstants.base_url}/movie/now_playing?api_key=$apiKey');
+  }
+
+  @override
+  Future<dynamic> getCurrentPlayingShows() {
+    return httpClient.get(
+        url: '${ApiConstants.base_url}/tv/on_the_air?api_key=$apiKey');
+  }
+
+  @override
+  Future getPopularMoviesShows(PopularMoviesShowsRequest request) {
+    return httpClient.get(
+        url:
+            '${ApiConstants.base_url}/${request.type}/popular?api_key=$apiKey&page=${request.page}');
   }
 }

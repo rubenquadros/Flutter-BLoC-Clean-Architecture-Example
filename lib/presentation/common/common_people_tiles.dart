@@ -32,26 +32,27 @@ class CommonPeopleTiles extends StatelessWidget {
           }),
     );
   }
-}
 
-Widget _trendingPeopleCell(BuildContext context, String imagePath, double id) {
-  return GestureDetector(
-    onTap: () => _navigateToPersonDetails(context, id),
-    child: Card(
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      elevation: 5.0,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.0))),
-      child: Image.network(
-        '${Configurations.imageUrl}/${Configurations.imageSize}$imagePath',
-        fit: BoxFit.cover,
+  Widget _trendingPeopleCell(
+      BuildContext context, String imagePath, double id) {
+    return GestureDetector(
+      onTap: () => _navigateToPersonDetails(context, id),
+      child: Card(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        elevation: 5.0,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10.0))),
+        child: Image.network(
+          '${Configurations.imageUrl}/${Configurations.imageSize}$imagePath',
+          fit: BoxFit.cover,
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
-void _navigateToPersonDetails(BuildContext context, double id) {
-  Navigator.push(context, MaterialPageRoute(builder: (context) {
-    return PersonDetails(id: id);
-  }));
+  void _navigateToPersonDetails(BuildContext context, double id) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return PersonDetails(id: id);
+    }));
+  }
 }

@@ -47,98 +47,98 @@ class _MovieShowCastState extends State<MovieShowCast> {
           }
         });
   }
-}
 
-Widget _showCast(BuildContext context, CastRecord cast) {
-  return Column(
-    children: [
-      Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          UIConstants.cast,
-          style: TextStyle(
-              color: Colors.black,
-              fontFamily: UIConstants.fontFamilyMetropolis,
-              fontSize: 20.0,
-              fontWeight: FontWeight.w700),
-        ),
-      ),
-      _castView(context, cast)
-    ],
-  );
-}
-
-Widget _castView(BuildContext context, CastRecord castCrew) {
-  final width = MediaQuery.of(context).size.width;
-  return Container(
-    margin: EdgeInsets.only(top: 16.0),
-    width: width,
-    height: width / 2,
-    child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: castCrew.cast?.length,
-        itemBuilder: (context, index) {
-          return _castViewCell(
-              context,
-              castCrew.cast?[index].id?.toDouble() ?? 0,
-              castCrew.cast?[index].name ?? '',
-              castCrew.cast?[index].profilePath ?? '',
-              castCrew.cast?[index].character ?? '');
-        }),
-  );
-}
-
-Widget _castViewCell(BuildContext context, double id, String name,
-    String imagePath, String characterName) {
-  return Column(
-    children: [
-      Padding(
-        padding: EdgeInsets.only(top: 16.0),
-        child: GestureDetector(
-          onTap: () => _navigateToPersonDetails(context, id, imagePath),
-          child: CircleAvatar(
-            radius: 60.0,
-            backgroundColor: Colors.black12,
-            backgroundImage: NetworkImage(
-                '${Configurations.imageUrl}/${Configurations.imageSize}$imagePath'),
+  Widget _showCast(BuildContext context, CastRecord cast) {
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            UIConstants.cast,
+            style: TextStyle(
+                color: Colors.black,
+                fontFamily: UIConstants.fontFamilyMetropolis,
+                fontSize: 20.0,
+                fontWeight: FontWeight.w700),
           ),
         ),
-      ),
-      Expanded(
-          child: Padding(
-        padding: EdgeInsets.only(bottom: 16.0),
-        child: Container(
-          width: 140,
-          height: 30.0,
-          child: Center(
-            child: Text(
-              name,
-              style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: UIConstants.fontFamilyMetropolis,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w700),
+        _castView(context, cast)
+      ],
+    );
+  }
+
+  Widget _castView(BuildContext context, CastRecord castCrew) {
+    final width = MediaQuery.of(context).size.width;
+    return Container(
+      margin: EdgeInsets.only(top: 16.0),
+      width: width,
+      height: width / 2,
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: castCrew.cast?.length,
+          itemBuilder: (context, index) {
+            return _castViewCell(
+                context,
+                castCrew.cast?[index].id?.toDouble() ?? 0,
+                castCrew.cast?[index].name ?? '',
+                castCrew.cast?[index].profilePath ?? '',
+                castCrew.cast?[index].character ?? '');
+          }),
+    );
+  }
+
+  Widget _castViewCell(BuildContext context, double id, String name,
+      String imagePath, String characterName) {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: 16.0),
+          child: GestureDetector(
+            onTap: () => _navigateToPersonDetails(context, id, imagePath),
+            child: CircleAvatar(
+              radius: 60.0,
+              backgroundColor: Colors.black12,
+              backgroundImage: NetworkImage(
+                  '${Configurations.imageUrl}/${Configurations.imageSize}$imagePath'),
             ),
           ),
         ),
-      )),
-    ],
-  );
-}
+        Expanded(
+            child: Padding(
+          padding: EdgeInsets.only(bottom: 16.0),
+          child: Container(
+            width: 140,
+            height: 30.0,
+            child: Center(
+              child: Text(
+                name,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: UIConstants.fontFamilyMetropolis,
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.w700),
+              ),
+            ),
+          ),
+        )),
+      ],
+    );
+  }
 
-Widget _initState() {
-  return CommonEmptyInit();
-}
+  Widget _initState() {
+    return CommonEmptyInit();
+  }
 
-Widget _errorState() {
-  return ErrorUI();
-}
+  Widget _errorState() {
+    return ErrorUI();
+  }
 
-void _navigateToPersonDetails(
-    BuildContext context, double id, String imagePath) {
-  if (imagePath.isNotEmpty) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return PersonDetails(id: id);
-    }));
+  void _navigateToPersonDetails(
+      BuildContext context, double id, String imagePath) {
+    if (imagePath.isNotEmpty) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return PersonDetails(id: id);
+      }));
+    }
   }
 }

@@ -79,7 +79,7 @@ class Cast {
     knownForDepartment = json['known_for_department'];
     name = json['name'];
     originalName = json['original_name'];
-    popularity = json['popularity'];
+    popularity = json['popularity'].toDouble();
     profilePath = json['profile_path'];
     castId = json['cast_id'];
     character = json['character'];
@@ -138,7 +138,7 @@ class Crew {
     knownForDepartment = json['known_for_department'];
     name = json['name'];
     originalName = json['original_name'];
-    popularity = json['popularity'];
+    popularity = json['popularity'].toDouble();
     profilePath = json['profile_path'];
     creditId = json['credit_id'];
     department = json['department'];

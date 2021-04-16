@@ -48,88 +48,88 @@ class _PersonCreditsState extends State<PersonCredits> {
           }
         });
   }
-}
 
-Widget _showCredits(BuildContext context, PersonCreditsRecord credits) {
-  return Column(
-    children: [
-      Padding(
-        padding: EdgeInsets.all(10.0),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            UIConstants.popular,
-            style: TextStyle(
-                color: Colors.black,
-                fontFamily: UIConstants.fontFamilyMetropolis,
-                fontSize: 20.0,
-                fontWeight: FontWeight.w700),
+  Widget _showCredits(BuildContext context, PersonCreditsRecord credits) {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              UIConstants.popular,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: UIConstants.fontFamilyMetropolis,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w700),
+            ),
           ),
         ),
-      ),
-      _showPopular(context, credits)
-    ],
-  );
-}
-
-Widget _showPopular(BuildContext context, PersonCreditsRecord credits) {
-  final width = MediaQuery.of(context).size.width;
-  var _itemCount = 0;
-  if (credits.cast != null && credits.cast!.length < 10) {
-    _itemCount = credits.cast!.length;
-  } else {
-    _itemCount = 10;
-  }
-  return Container(
-    height: width / 2,
-    width: width,
-    margin: EdgeInsets.only(bottom: 8.0),
-    child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: _itemCount,
-        itemBuilder: (context, index) {
-          var type = '';
-          if (credits.cast?[index].mediaType == AppConstants.movie) {
-            type = AppConstants.movie;
-          } else {
-            type = AppConstants.tvShow;
-          }
-          return _popularCell(context, credits.cast?[index].posterPath ?? '',
-              type, credits.cast?[index].id?.toDouble() ?? 0);
-        }),
-  );
-}
-
-Widget _popularCell(
-    BuildContext context, String imagePath, String type, double id) {
-  return GestureDetector(
-    onTap: () => _navigateToDetails(context, type, id),
-    child: Card(
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      elevation: 5.0,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.0))),
-      child: Image.network(
-        '${Configurations.imageUrl}/${Configurations.imageSize}$imagePath',
-        fit: BoxFit.cover,
-      ),
-    ),
-  );
-}
-
-Widget _initState() {
-  return CommonEmptyInit();
-}
-
-Widget _errorState() {
-  return ErrorUI();
-}
-
-void _navigateToDetails(BuildContext context, String type, double id) {
-  Navigator.push(context, MaterialPageRoute(builder: (context) {
-    return MovieShowDetails(
-      type: type,
-      id: id,
+        _showPopular(context, credits)
+      ],
     );
-  }));
+  }
+
+  Widget _showPopular(BuildContext context, PersonCreditsRecord credits) {
+    final width = MediaQuery.of(context).size.width;
+    var _itemCount = 0;
+    if (credits.cast != null && credits.cast!.length < 10) {
+      _itemCount = credits.cast!.length;
+    } else {
+      _itemCount = 10;
+    }
+    return Container(
+      height: width / 2,
+      width: width,
+      margin: EdgeInsets.only(bottom: 8.0),
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: _itemCount,
+          itemBuilder: (context, index) {
+            var type = '';
+            if (credits.cast?[index].mediaType == AppConstants.movie) {
+              type = AppConstants.movie;
+            } else {
+              type = AppConstants.tvShow;
+            }
+            return _popularCell(context, credits.cast?[index].posterPath ?? '',
+                type, credits.cast?[index].id?.toDouble() ?? 0);
+          }),
+    );
+  }
+
+  Widget _popularCell(
+      BuildContext context, String imagePath, String type, double id) {
+    return GestureDetector(
+      onTap: () => _navigateToDetails(context, type, id),
+      child: Card(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        elevation: 5.0,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10.0))),
+        child: Image.network(
+          '${Configurations.imageUrl}/${Configurations.imageSize}$imagePath',
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
+  Widget _initState() {
+    return CommonEmptyInit();
+  }
+
+  Widget _errorState() {
+    return ErrorUI();
+  }
+
+  void _navigateToDetails(BuildContext context, String type, double id) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return MovieShowDetails(
+        type: type,
+        id: id,
+      );
+    }));
+  }
 }
