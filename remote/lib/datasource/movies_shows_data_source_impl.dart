@@ -2,6 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:remote/http_client.dart';
 import 'package:remote/model/cast_request.dart';
 import 'package:remote/model/details_request.dart';
+import 'package:remote/model/genres_request.dart';
 import 'package:remote/model/person_credits_request.dart';
 import 'package:remote/model/person_info_request.dart';
 import 'package:remote/model/popular_movies_shows_request.dart';
@@ -32,7 +33,7 @@ class MoviesShowsDataSourceImpl implements MoviesShowsDataSource {
   Future getTrendingPeople(TrendingRequest request) {
     return httpClient.get(
         url:
-        '${ApiConstants.base_url}/trending/${request.type}/week?api_key=$apiKey');
+            '${ApiConstants.base_url}/trending/${request.type}/week?api_key=$apiKey');
   }
 
   @override
@@ -82,9 +83,16 @@ class MoviesShowsDataSourceImpl implements MoviesShowsDataSource {
   }
 
   @override
-  Future getPopularMoviesShows(PopularMoviesShowsRequest request) {
+  Future<dynamic> getPopularMoviesShows(PopularMoviesShowsRequest request) {
     return httpClient.get(
         url:
             '${ApiConstants.base_url}/${request.type}/popular?api_key=$apiKey&page=${request.page}');
+  }
+
+  @override
+  Future<dynamic> getGenres(GenresRequest request) {
+    return httpClient.get(
+        url:
+            '${ApiConstants.base_url}/genre/${request.type}/list?api_key=$apiKey');
   }
 }

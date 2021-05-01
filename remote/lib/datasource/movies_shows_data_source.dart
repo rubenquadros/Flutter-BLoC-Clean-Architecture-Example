@@ -1,5 +1,6 @@
 import 'package:remote/model/cast_request.dart';
 import 'package:remote/model/details_request.dart';
+import 'package:remote/model/genres_request.dart';
 import 'package:remote/model/person_credits_request.dart';
 import 'package:remote/model/person_info_request.dart';
 import 'package:remote/model/popular_movies_shows_request.dart';
@@ -19,5 +20,5 @@ abstract class MoviesShowsDataSource {
   Future<dynamic> getCurrentPlayingMovies();
   Future<dynamic> getCurrentPlayingShows();
   Future<dynamic> getPopularMoviesShows(PopularMoviesShowsRequest request);
-
+  Future<dynamic> getGenres(GenresRequest request);
 }

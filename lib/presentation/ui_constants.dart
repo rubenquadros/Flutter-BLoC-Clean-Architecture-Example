@@ -10,6 +10,9 @@ class UIConstants {
   static const episodes = 'Episodes';
   static const cast = 'Cast';
   static const popular = 'Popular';
+  static const filters = 'Filters';
+  static const sortBy = 'Sort By';
+  static const genres = 'Genres';
   static const currentlyPlaying = 'Currently Playing';
   static const errorMessage = 'Oops! There was an error';
   static const fontFamilyIronclad = 'iron';

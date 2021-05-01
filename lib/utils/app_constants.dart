@@ -12,5 +12,7 @@ class AppConstants {
   static const String dateFormat = 'dd-MM-yyyy';
   static const String NA = 'NA';
   static const String trailer = 'Trailer';
+  static const List<String> movieSortByList = ['Upcoming', 'Now Playing', 'Latest', 'Top Rated'];
+  static const List<String> showSortByList = ['Airing Today', 'On The Air', 'Latest', 'Top Rated'];
   static const int maxPages = 500;
 }

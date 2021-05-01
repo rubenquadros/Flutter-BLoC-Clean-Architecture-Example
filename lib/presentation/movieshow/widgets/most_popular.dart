@@ -13,27 +13,29 @@ import 'package:get_it/get_it.dart';
 
 class MostPopular extends StatefulWidget {
   final String type;
+  final String filter;
 
-  MostPopular({required this.type});
+  MostPopular({required this.type, required this.filter});
 
   @override
-  State<StatefulWidget> createState() => _MostPopularState(type);
+  State<StatefulWidget> createState() => _MostPopularState(type, filter);
 }
 
 class _MostPopularState extends State<MostPopular> {
   final String type;
+  final String filter;
   final MoviesShowsBloc _moviesShowsBloc =
       GetIt.instance.get<MoviesShowsBloc>();
   var _page = 1;
 
-  _MostPopularState(this.type);
+  _MostPopularState(this.type, this.filter);
 
   @override
   Widget build(BuildContext context) {
     final List<Results> _popularList = [];
     BlocProvider(create: (BuildContext context) => _moviesShowsBloc);
     _moviesShowsBloc.add(MoviesShowsEvent(
-        type: type, event: AppConstants.topRated, page: _page));
+        type: type, event: filter, page: _page));
     return BlocBuilder(
         bloc: _moviesShowsBloc,
         builder: (context, state) {
