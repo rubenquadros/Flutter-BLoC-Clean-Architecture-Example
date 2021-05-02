@@ -7,7 +7,7 @@ class CurrentPlayingShowsUseCase {
 
   CurrentPlayingShowsUseCase(this.repository);
 
-  Future<dynamic> getCurrentPlayingShows() {
-    return repository.getCurrentPlayingShows();
+  Future<dynamic> getCurrentPlayingShows({required int page}) {
+    return repository.getCurrentPlayingShows(page);
   }
 }

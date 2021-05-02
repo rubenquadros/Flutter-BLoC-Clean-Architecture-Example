@@ -5,17 +5,19 @@ import '../ui_constants.dart';
 
 class Filters extends StatefulWidget {
   final String type;
+  final String selectedValue;
 
-  Filters({required this.type});
+  Filters({required this.type, required this.selectedValue});
 
   @override
-  State<StatefulWidget> createState() => _FiltersState(type);
+  State<StatefulWidget> createState() => _FiltersState(type, selectedValue);
 }
 
 class _FiltersState extends State<Filters> {
   final String type;
+  final String selectedValue;
 
-  _FiltersState(this.type);
+  _FiltersState(this.type, this.selectedValue);
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +63,7 @@ class _FiltersState extends State<Filters> {
                 ],
               ),
             ),
-            MoviesShowsFilters(type: type)
+            MoviesShowsFilters(type: type, selectedValue: selectedValue)
           ],
         ),
       ),

@@ -15,7 +15,7 @@ class MoviesShows extends StatefulWidget {
 
 class _MoviesShowsState extends State<MoviesShows> {
   final String type;
-  var filter = AppConstants.topRated;
+  var filter = '${AppConstants.sortBy},${AppConstants.popular}';
 
   _MoviesShowsState(this.type);
 
@@ -72,7 +72,7 @@ class _MoviesShowsState extends State<MoviesShows> {
   void _navigateToFilters(BuildContext context) async {
     var result =
         await Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return Filters(type: type);
+      return Filters(type: type, selectedValue: filter);
     }));
 
     if(result != '') {

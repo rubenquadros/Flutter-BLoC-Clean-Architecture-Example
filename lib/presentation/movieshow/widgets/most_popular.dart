@@ -71,7 +71,7 @@ class _MostPopularState extends State<MostPopular> {
                         _scrollController.position.maxScrollExtent &&
                     _page < AppConstants.maxPages) {
                   _moviesShowsBloc.add(MoviesShowsEvent(
-                      type: type, event: AppConstants.topRated, page: _page));
+                      type: type, event: filter, page: _page));
                 }
               }),
             itemCount: popularList.length,

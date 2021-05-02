@@ -6,8 +6,16 @@ class AppConstants {
   static const String person = 'person';
   static const String personalInfo = 'personal_info';
   static const String credits = 'credits';
+  static const String sortBy = 'sort_by';
+  static const String genres = 'genres';
+  static const String popular = 'popular';
   static const String currentlyPlaying = 'currently_playing';
-  static const String topRated = 'top_rated';
+  static const String topRated = 'Top Rated';
+  static const String latest = 'Latest';
+  static const String upcoming = 'Upcoming';
+  static const String nowPlaying = 'Now Playing';
+  static const String airingToday = 'Airing Today';
+  static const String onTheAir = 'On The Air';
   static const String yearFormat = 'yyyy';
   static const String dateFormat = 'dd-MM-yyyy';
   static const String NA = 'NA';

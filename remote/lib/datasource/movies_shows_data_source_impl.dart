@@ -3,9 +3,11 @@ import 'package:remote/http_client.dart';
 import 'package:remote/model/cast_request.dart';
 import 'package:remote/model/details_request.dart';
 import 'package:remote/model/genres_request.dart';
+import 'package:remote/model/movies_shows_genre_request.dart';
+import 'package:remote/model/page_request.dart';
 import 'package:remote/model/person_credits_request.dart';
 import 'package:remote/model/person_info_request.dart';
-import 'package:remote/model/popular_movies_shows_request.dart';
+import 'package:remote/model/movies_shows_request.dart';
 import 'package:remote/model/trailer_request.dart';
 import 'package:remote/model/trending_request.dart';
 import 'package:remote/util/api_constants.dart';
@@ -71,22 +73,59 @@ class MoviesShowsDataSourceImpl implements MoviesShowsDataSource {
   }
 
   @override
-  Future<dynamic> getCurrentPlayingMovies() {
+  Future<dynamic> getCurrentPlayingMovies(PageRequest request) {
     return httpClient.get(
-        url: '${ApiConstants.base_url}/movie/now_playing?api_key=$apiKey');
+        url:
+            '${ApiConstants.base_url}/movie/now_playing?api_key=$apiKey&page=${request.page}');
   }
 
   @override
-  Future<dynamic> getCurrentPlayingShows() {
+  Future<dynamic> getCurrentPlayingShows(PageRequest request) {
     return httpClient.get(
-        url: '${ApiConstants.base_url}/tv/on_the_air?api_key=$apiKey');
+        url:
+            '${ApiConstants.base_url}/tv/on_the_air?api_key=$apiKey&page=${request.page}');
   }
 
   @override
-  Future<dynamic> getPopularMoviesShows(PopularMoviesShowsRequest request) {
+  Future<dynamic> getPopularMoviesShows(MoviesShowsRequest request) {
     return httpClient.get(
         url:
             '${ApiConstants.base_url}/${request.type}/popular?api_key=$apiKey&page=${request.page}');
+  }
+
+  @override
+  Future<dynamic> getLatestMoviesShows(MoviesShowsRequest request) {
+    return httpClient.get(
+        url:
+            '${ApiConstants.base_url}/${request.type}/latest?api_key=$apiKey&page=${request.page}');
+  }
+
+  @override
+  Future<dynamic> getTopRatedMoviesShows(MoviesShowsRequest request) {
+    return httpClient.get(
+        url:
+            '${ApiConstants.base_url}/${request.type}/top_rated?api_key=$apiKey&page=${request.page}');
+  }
+
+  @override
+  Future<dynamic> getUpcomingMovies(PageRequest request) {
+    return httpClient.get(
+        url:
+            '${ApiConstants.base_url}/movie/upcoming?api_key=$apiKey&page=${request.page}');
+  }
+
+  @override
+  Future<dynamic> getAiringTodayShows(PageRequest request) {
+    return httpClient.get(
+        url:
+            '${ApiConstants.base_url}/tv/airing_today?api_key=$apiKey&page=${request.page}');
+  }
+
+  @override
+  Future<dynamic> getMoviesShowsByGenre(MoviesShowsGenreRequest request) {
+    return httpClient.get(
+        url:
+            '${ApiConstants.base_url}/discover/${request.type}?api_key=$apiKey&with_genres=${request.genreId}&page=${request.page}');
   }
 
   @override

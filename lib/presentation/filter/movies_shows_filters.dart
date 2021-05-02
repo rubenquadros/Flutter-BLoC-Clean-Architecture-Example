@@ -13,20 +13,22 @@ import '../ui_constants.dart';
 
 class MoviesShowsFilters extends StatefulWidget {
   final String type;
+  final String selectedValue;
 
-  MoviesShowsFilters({required this.type});
+  MoviesShowsFilters({required this.type, required this.selectedValue});
 
   @override
-  State<StatefulWidget> createState() => _MoviesShowsFiltersState(type);
+  State<StatefulWidget> createState() => _MoviesShowsFiltersState(type, selectedValue);
 }
 
 class _MoviesShowsFiltersState extends State<MoviesShowsFilters> {
   final String type;
+  final String selectedValue;
   final MoviesShowsFilterBloc _moviesShowsFilterBloc =
       GetIt.instance.get<MoviesShowsFilterBloc>();
   List<Genres>? _movieShowGenres;
 
-  _MoviesShowsFiltersState(this.type);
+  _MoviesShowsFiltersState(this.type, this.selectedValue);
 
   @override
   Widget build(BuildContext context) {
@@ -136,6 +138,7 @@ class _MoviesShowsFiltersState extends State<MoviesShowsFilters> {
   }
 
   Iterable<Widget> get _sortByWidgets sync* {
+    final filterValue = selectedValue.split(',');
     var _sortByList;
     if (type == AppConstants.movie) {
       _sortByList = AppConstants.movieSortByList;
@@ -155,8 +158,11 @@ class _MoviesShowsFiltersState extends State<MoviesShowsFilters> {
                 fontWeight: FontWeight.w700),
           ),
           shape: StadiumBorder(side: BorderSide()),
+          selectedColor: Colors.deepOrangeAccent,
+          showCheckmark: false,
+          selected: filterValue[1] == filter,
           onSelected: (bool value) {
-            _navigateToMoviesShows(filter);
+            _navigateToMoviesShows('${AppConstants.sortBy},$filter');
           },
         ),
       );
@@ -164,6 +170,7 @@ class _MoviesShowsFiltersState extends State<MoviesShowsFilters> {
   }
 
   Iterable<Widget> get _genres sync* {
+    final filterValue = selectedValue.split(',');
     for (int i = 0; i < _movieShowGenres!.length; i++) {
       yield Padding(
         padding: const EdgeInsets.all(4.0),
@@ -177,8 +184,12 @@ class _MoviesShowsFiltersState extends State<MoviesShowsFilters> {
                 fontWeight: FontWeight.w700),
           ),
           shape: StadiumBorder(side: BorderSide()),
+          selectedColor: Colors.deepOrangeAccent,
+          showCheckmark: false,
+          selected: filterValue[1] == (_movieShowGenres![i].id).toString(),
           onSelected: (bool value) {
-            _navigateToMoviesShows(_movieShowGenres![i].name ?? '');
+            _navigateToMoviesShows(
+                '${AppConstants.genres},${_movieShowGenres![i].id ?? ''}');
           },
         ),
       );
