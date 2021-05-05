@@ -16,6 +16,9 @@ class AppConstants {
   static const String nowPlaying = 'Now Playing';
   static const String airingToday = 'Airing Today';
   static const String onTheAir = 'On The Air';
+  static const String suggestions = 'suggestions';
+  static const String search = 'search';
+  static const String progress = 'progress';
   static const String yearFormat = 'yyyy';
   static const String dateFormat = 'dd-MM-yyyy';
   static const String NA = 'NA';

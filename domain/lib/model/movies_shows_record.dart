@@ -76,16 +76,24 @@ class Results {
     title = json['title'];
     originalLanguage = json['original_language'];
     originalTitle = json['original_title'];
-    posterPath = json['poster_path'];
+    if(json['poster_path'] != null) {
+      posterPath = json['poster_path'];
+    }
     video = json['video'];
-    voteAverage = json['vote_average'].toDouble();
+    if(json['vote_average'] != null) {
+      voteAverage = json['vote_average'].toDouble();
+    }
     overview = json['overview'];
     id = json['id'];
     voteCount = json['vote_count'];
     adult = json['adult'];
-    backdropPath = json['backdrop_path'];
+    if(json['backdrop_path'] != null) {
+      backdropPath = json['backdrop_path'];
+    }
     releaseDate = json['release_date'];
-    genreIds = json['genre_ids'].cast<int>();
+    if(json['genre_ids'] != null) {
+      genreIds = json['genre_ids'].cast<int>();
+    }
     popularity = json['popularity'].toDouble();
     if (json['media_type'] != null) {
       mediaType = json['media_type'];

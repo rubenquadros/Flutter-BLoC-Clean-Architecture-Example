@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fun_box/config/configurations.dart';
+import 'package:fun_box/presentation/search/search.dart';
 import 'package:fun_box/utils/app_constants.dart';
 
 import '../ui_constants.dart';
@@ -24,7 +25,9 @@ class CommonSearchBar extends StatelessWidget {
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30.0))),
           onTap: () {
-            debugPrint('clicked search');
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return Search();
+            }));
           },
         ),
       ),

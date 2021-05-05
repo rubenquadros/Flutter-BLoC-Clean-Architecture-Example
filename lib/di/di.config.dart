@@ -17,8 +17,9 @@ import 'package:domain/usecase/movies/movies_by_genres_use_case.dart' as _i18;
 import 'package:domain/usecase/movies/popular_movies_use_case.dart' as _i14;
 import 'package:domain/usecase/movies/top_rated_movies_use_case.dart' as _i16;
 import 'package:domain/usecase/movies/upcoming_movies_use_case.dart' as _i17;
-import 'package:domain/usecase/person/person_credits_use_case.dart' as _i30;
-import 'package:domain/usecase/person/person_info_use_case.dart' as _i29;
+import 'package:domain/usecase/person/person_credits_use_case.dart' as _i32;
+import 'package:domain/usecase/person/person_info_use_case.dart' as _i31;
+import 'package:domain/usecase/search_movies_shows_use_case.dart' as _i29;
 import 'package:domain/usecase/shows/airing_today_shows_use_case.dart' as _i23;
 import 'package:domain/usecase/shows/current_playing_shows_use_case.dart'
     as _i19;
@@ -26,20 +27,21 @@ import 'package:domain/usecase/shows/latest_shows_use_case.dart' as _i21;
 import 'package:domain/usecase/shows/popular_shows_use_case.dart' as _i20;
 import 'package:domain/usecase/shows/shows_by_genres_use_case.dart' as _i24;
 import 'package:domain/usecase/shows/top_rated_shows_use_case.dart' as _i22;
-import 'package:domain/usecase/trending/trending_movies_use_case.dart' as _i32;
-import 'package:domain/usecase/trending/trending_people_use_case.dart' as _i34;
-import 'package:domain/usecase/trending/trending_shows_use_case.dart' as _i33;
+import 'package:domain/usecase/trending/trending_movies_use_case.dart' as _i34;
+import 'package:domain/usecase/trending/trending_people_use_case.dart' as _i36;
+import 'package:domain/usecase/trending/trending_shows_use_case.dart' as _i35;
 import 'package:domain/usecase/video/movie_trailer_use_case.dart' as _i10;
 import 'package:domain/usecase/video/show_trailer_use_case.dart' as _i11;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../bloc/all/trending_bloc.dart' as _i31;
+import '../bloc/all/trending_bloc.dart' as _i33;
 import '../bloc/cast/movie_show_cast_bloc.dart' as _i3;
 import '../bloc/details/movie_show_details_bloc.dart' as _i6;
 import '../bloc/filter/movies_shows_filter_bloc.dart' as _i25;
 import '../bloc/movieshow/movies_shows_bloc.dart' as _i12;
-import '../bloc/person/person_details_bloc.dart' as _i28;
+import '../bloc/person/person_details_bloc.dart' as _i30;
+import '../bloc/search/movies_shows_search_bloc.dart' as _i28;
 import '../bloc/video/movie_show_trailer_bloc.dart'
     as _i9; // ignore_for_file: unnecessary_lambdas
 
@@ -69,11 +71,13 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       get<_i24.ShowsByGenresUseCase>()));
   gh.factory<_i25.MoviesShowsFilterBloc>(() => _i25.MoviesShowsFilterBloc(
       get<_i26.MovieFilterUseCase>(), get<_i27.ShowFilterUseCase>()));
-  gh.factory<_i28.PersonDetailsBloc>(() => _i28.PersonDetailsBloc(
-      get<_i29.PersonInfoUseCase>(), get<_i30.PersonCreditsUseCase>()));
-  gh.factory<_i31.TrendingBloc>(() => _i31.TrendingBloc(
-      get<_i32.TrendingMoviesUseCase>(),
-      get<_i33.TrendingShowsUseCase>(),
-      get<_i34.TrendingPeopleUseCase>()));
+  gh.factory<_i28.MoviesShowsSearchBloc>(
+      () => _i28.MoviesShowsSearchBloc(get<_i29.SearchMoviesShowsUseCase>()));
+  gh.factory<_i30.PersonDetailsBloc>(() => _i30.PersonDetailsBloc(
+      get<_i31.PersonInfoUseCase>(), get<_i32.PersonCreditsUseCase>()));
+  gh.factory<_i33.TrendingBloc>(() => _i33.TrendingBloc(
+      get<_i34.TrendingMoviesUseCase>(),
+      get<_i35.TrendingShowsUseCase>(),
+      get<_i36.TrendingPeopleUseCase>()));
   return get;
 }

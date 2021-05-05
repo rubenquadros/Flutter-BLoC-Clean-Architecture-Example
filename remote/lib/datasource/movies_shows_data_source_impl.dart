@@ -8,6 +8,7 @@ import 'package:remote/model/page_request.dart';
 import 'package:remote/model/person_credits_request.dart';
 import 'package:remote/model/person_info_request.dart';
 import 'package:remote/model/movies_shows_request.dart';
+import 'package:remote/model/search_request.dart';
 import 'package:remote/model/trailer_request.dart';
 import 'package:remote/model/trending_request.dart';
 import 'package:remote/util/api_constants.dart';
@@ -133,5 +134,12 @@ class MoviesShowsDataSourceImpl implements MoviesShowsDataSource {
     return httpClient.get(
         url:
             '${ApiConstants.base_url}/genre/${request.type}/list?api_key=$apiKey');
+  }
+
+  @override
+  Future<dynamic> searchMoviesShows(SearchRequest request) {
+    return httpClient.get(
+        url:
+            '${ApiConstants.base_url}/search/multi?api_key=$apiKey&language=en-US&query=${request.searchTerm}');
   }
 }

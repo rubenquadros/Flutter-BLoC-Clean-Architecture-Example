@@ -6,6 +6,7 @@ import 'package:remote/model/page_request.dart';
 import 'package:remote/model/person_credits_request.dart';
 import 'package:remote/model/person_info_request.dart';
 import 'package:remote/model/movies_shows_request.dart';
+import 'package:remote/model/search_request.dart';
 import 'package:remote/model/trailer_request.dart';
 import 'package:remote/model/trending_request.dart';
 
@@ -28,4 +29,5 @@ abstract class MoviesShowsDataSource {
   Future<dynamic> getAiringTodayShows(PageRequest request);
   Future<dynamic> getMoviesShowsByGenre(MoviesShowsGenreRequest request);
   Future<dynamic> getGenres(GenresRequest request);
+  Future<dynamic> searchMoviesShows(SearchRequest request);
 }
